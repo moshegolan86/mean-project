@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  margin: 1rem;
+}
+
+mat-spinner {
+  margin: auto;
+
+}
+

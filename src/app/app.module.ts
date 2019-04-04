@@ -13,13 +13,15 @@ import { PostListComponent } from './posts/post-list/post-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { loginComponent } from './posts/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PostCreateComponent,
     headerComponent,
-    PostListComponent
+    PostListComponent,
+    loginComponent
   ],
   imports: [
     BrowserModule,

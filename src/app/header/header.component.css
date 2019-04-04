@@ -22,8 +22,7 @@ mat-toolbar {
   margin-bottom: 20px;
 }
 
-.avatar-pic {
-  /* width: 35px;
-  height: auto;
-  margin-top: 25px; */
+.img-fluid {
+  width: 30px;
+  height: 30px;
 }

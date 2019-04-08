@@ -8,6 +8,7 @@ var user = mongoose.Schema({
   lastName: { type: string, required: true},
   phoneNumber: { type: phoneNumber, required: true},
   img: {type: Image, required: false},
+
   isAdmin: { type: boolean, required: false}
 
 });

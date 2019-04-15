@@ -4,6 +4,7 @@ import { ActivatedRoute, ParamMap } from "@angular/router";
 
 import { PostsService } from "../posts.service";
 import { Post } from "../post.model";
+import { User } from '../../auth/user.model';
 
 @Component({
   selector: "app-post-create",
@@ -11,9 +12,9 @@ import { Post } from "../post.model";
   styleUrls: ["./post-create.component.css"]
 })
 export class PostCreateComponent implements OnInit {
-  enteredTitle = "";
-  enteredContent = "";
+
   post: Post;
+  user: User;
   isLoading = false;
   private mode = "create";
   private postId: string;
@@ -56,4 +57,14 @@ export class PostCreateComponent implements OnInit {
     }
     form.resetForm();
   }
+
+  // onRegister(form: NgForm) {
+  //   if (form.invalid) {
+  //     return;
+  //   }
+  //   else {
+
+  //   }
+  //   form.resetForm();
+  // }
 }

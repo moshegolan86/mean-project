@@ -3,8 +3,7 @@ export interface User {
   password: string;
   firstName: string;
   lastName: string;
-  phoneNumber: string;
-  img: ImageData;
+  img: String;
   isAdmin: boolean;
 
 }

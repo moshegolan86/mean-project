@@ -1,34 +1,3 @@
-<!-- <mat-toolbar style="height: 80px">
-  <span> <a routerLink = "/"><img src= "http://asce.co.il/wp-content/themes/Sce/images/logo.png"></a></span>
-  <span class = "spacer"></span>
-  <ul>
-    <li>
-      <a mat-button routerLink = "/create" routerLinkActive = "mat-primary">Login</a>
-      <a mat-button routerLink = "/edit" routerLinkActive = "mat-primary">Register</a>
-      <mdb-icon fas icon="address-book"></mdb-icon>
-      <span class = smallSpacer></span>
-      <form class="md-form">
-        <div class="file-field">
-          <div class="mb-4">
-            <img src="https://mdbootstrap.com/img/Photos/Others/placeholder-avatar.jpg" class="rounded-circle z-depth-1-half avatar-pic"
-              alt="example placeholder avatar">
-          </div>
-          <div class="d-flex justify-content-center">
-            <div class="btn btn-mdb-color btn-rounded float-left">
-              <span>Add photo</span>
-              <input type="file">
-            </div>
-          </div>
-        </div>
-      </form>
-    </li>
-
-  </ul>
-</mat-toolbar> -->
-
-
-
-
 <!--Navbar-->
 <mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark purple lighten-1" [containerInside]="false">
 
@@ -71,8 +40,11 @@
         <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
           <img src="https://image.flaticon.com/icons/png/512/97/97895.png" alt="" class="img-fluid rounded-circle z-depth-0"></a>
         <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
-          <a class="dropdown-item waves-light" routerLink="/login" mdbWavesEffect href="#">Log in</a>
-          <a class="dropdown-item waves-light" routerLink="/register" mdbWavesEffect href="#">Register</a>
+
+          <a class="dropdown-item waves-light" routerLink="/login" *ngIf="!isAuthenticated" href="#">Log in</a>
+          <a class="dropdown-item waves-light" routerLink="/register" *ngIf="!isAuthenticated" mdbWavesEffect href="#">Register</a>
+          <a class="dropdown-item waves-light" routerLink="/register" *ngIf="isAuthenticated" (click)="onLogout()" mdbWavesEffect href="#">Logout</a>
+          <a class="dropdown-item waves-light" routerLink="/userprofile" *ngIf="isAuthenticated" mdbWavesEffect href="#">View Profile</a>
         </div>
       </li>
     </ul>

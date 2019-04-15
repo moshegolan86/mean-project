@@ -10,10 +10,13 @@ import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { headerComponent } from './header/header.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { loginComponent } from './posts/login/login.component';
+import { loginComponent } from './auth/login/login.component';
+import { registerComponent } from './auth/register/register.component';
+import { AuthInterceptor } from './auth/auth-interceptor';
+import { profileComponent } from './auth/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,9 @@ import { loginComponent } from './posts/login/login.component';
     PostCreateComponent,
     headerComponent,
     PostListComponent,
-    loginComponent
+    loginComponent,
+    registerComponent,
+    profileComponent
   ],
   imports: [
     BrowserModule,
@@ -39,9 +44,12 @@ import { loginComponent } from './posts/login/login.component';
     MDBBootstrapModule.forRoot(),
     NgbModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+  ],
   schemas: [NO_ERRORS_SCHEMA],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }
 

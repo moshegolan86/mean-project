@@ -10,6 +10,7 @@
   <div class="card-body px-lg-5 pt-0">
       <!-- Form -->
       <form (submit)= "onRegister(registerForm)" #registerForm="ngForm" class="text-center" style="color: #757575;">
+          <mat-error *ngIf="isInvalidInput">Email Already exists</mat-error>
           <div class="form-row">
               <div class="col">
                   <!-- First name -->

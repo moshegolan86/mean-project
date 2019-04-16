@@ -58,13 +58,13 @@ export class PostCreateComponent implements OnInit {
     form.resetForm();
   }
 
-  // onRegister(form: NgForm) {
-  //   if (form.invalid) {
-  //     return;
-  //   }
-  //   else {
+  onRegister(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
+    else {
 
-  //   }
-  //   form.resetForm();
-  // }
+    }
+    form.resetForm();
+  }
 }

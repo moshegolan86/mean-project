@@ -4,7 +4,6 @@ import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 
 import { User } from "./user.model";
-import { stringify } from '@angular/core/src/util';
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -12,6 +11,7 @@ export class AuthService {
   private token: string;
   private tokenTimer: any;
   private authStatusListener = new Subject<boolean>();
+  private currentUser: User;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -34,7 +34,12 @@ export class AuthService {
       .post("http://localhost:3000/api/user/register", user)
       .subscribe(response => {
         console.log(response);
+        this.login(user.email, password);
+        this.router.navigate(['/']);
+      }, error => {
+        this.authStatusListener.next(false);
       });
+
   }
 
   login(email: string, password: string) {
@@ -57,7 +62,11 @@ export class AuthService {
           const expirationDate = new Date(now.getTime() + expiresInDuration * 1000);
           console.log(expirationDate);
           this.saveAuthData(token, expirationDate);
+          this.currentUser = user;
+          this.router.navigate(['/']);
         }
+      }, error => {
+        this.authStatusListener.next(false);
       });
   }
 
@@ -111,6 +120,12 @@ export class AuthService {
     return {
       token: token,
       expirationDate: new Date(expirationDate)
+    }
+  }
+
+  getCurrentUser(): User {
+    if (this.getIsAuth()) {
+      return this.currentUser;
     }
   }
 }

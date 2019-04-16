@@ -6,12 +6,14 @@ import { loginComponent } from './auth/login/login.component';
 import { registerComponent } from './auth/register/register.component';
 import { AuthGuard } from './auth/auth.guard';
 import { profileComponent } from './auth/profile/profile.component';
+import { contactComponent } from './views/contact/contact.component';
 
 const routes: Routes = [
   { path: '', component: PostListComponent},
   { path: 'register', component: registerComponent},
   { path: 'login', component: loginComponent},
-  { path: 'userprofile', component: profileComponent}
+  { path: 'userprofile', component: profileComponent},
+  { path: 'contactUs', component: contactComponent}
 ];
 
 @NgModule({

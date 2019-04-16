@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class headerComponent implements OnInit,OnDestroy{
+export class headerComponent implements OnInit, OnDestroy {
 
   isAuthenticated = false;
   private authListenerSubs: Subscription;

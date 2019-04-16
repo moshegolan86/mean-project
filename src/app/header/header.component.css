@@ -9,6 +9,10 @@ a {
   color: white;
 }
 
+.navbar-text {
+  color: #a6cb3a;
+}
+
 .spacer {
   flex: 1 1 auto;
 }
@@ -25,4 +29,8 @@ mat-toolbar {
 .img-fluid {
   width: 30px;
   height: 30px;
+}
+
+.email-text {
+  color: #a6cb3a;
 }

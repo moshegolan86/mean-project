@@ -10,7 +10,7 @@
 
       <!-- Form -->
       <form (submit)= "onLogin(loginForm)" #loginForm="ngForm" class="text-center" style="color: #757575;">
-
+        <mat-error *ngIf="isInvalidInput">Invalid Email/Password</mat-error>
         <!-- Email -->
         <div class="md-form">
           <input type="email" name="email" placeholder="Email" ngModel #emailInput="ngModel" id="materialLoginFormEmail" class="form-control" required email>

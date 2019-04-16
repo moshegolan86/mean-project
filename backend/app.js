@@ -9,7 +9,7 @@ const app = express();
 
 mongoose
   .connect(
-    'mongodb+srv://moshego:m8525123g@cluster0-grkk1.mongodb.net/My-Project?retryWrites=true'
+    'mongodb+srv://moshego:m8525123g@cluster0-grkk1.mongodb.net/My-Project'
   )
   .then(() => {
     console.log("Connected to database!");

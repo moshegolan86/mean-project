@@ -27,4 +27,13 @@ mat-spinner {
   text-align: center;
   color: #fff;
   z-index: 2;
+  height: 30% !important;
+  min-height: 380px;
+  min-width: 150px;
+
+}
+
+.image-blurred-edge {
+  /* you need to match the shadow color to your background or image border for the desired effect*/
+  box-shadow: 0 0 8px 8px #332a2a inset;
 }

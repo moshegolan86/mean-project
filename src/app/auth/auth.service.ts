@@ -12,6 +12,8 @@ export class AuthService {
   private tokenTimer: any;
   private authStatusListener = new Subject<boolean>();
   private currentUser: User;
+  private isAdmin = false;
+  public redirectUrl: string;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -27,14 +29,20 @@ export class AuthService {
     return this.authStatusListener.asObservable();
   }
 
-  createUser(email: string, password: string, firstName: string, lastName: string, isAdmin: boolean,img: String) {
+  getIsAdmin() {
+    return this.isAdmin;
+  }
+
+  createUser(email: string, password: string, firstName: string, lastName: string, isAdmin: boolean, img: String) {
     const user: User = { email: email, password: password, firstName: firstName, lastName: lastName,
     img: null, isAdmin: isAdmin};
     this.http
       .post("http://localhost:3000/api/user/register", user)
       .subscribe(response => {
         console.log(response);
-        this.login(user.email, password);
+        if (!user.isAdmin) {
+          this.login(user.email, password);
+        }
         this.router.navigate(['/']);
       }, error => {
         this.authStatusListener.next(false);
@@ -43,14 +51,24 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    const user: User = { email: email, password: password, firstName: null, lastName: null, isAdmin: false, img: null};
+    const user: User = { email: email, password: password, firstName: null, lastName: null, isAdmin: null, img: null};
     this.http
-      .post<{ token: string; expiresIn: number }>(
+      .post<{ token: string; expiresIn: number, firstName: string, lastName: string, isAdmin: boolean, img: string}>(
         "http://localhost:3000/api/user/login",
         user
       )
       .subscribe(response => {
-        console.log(response);
+        user.firstName = response.firstName;
+        user.lastName = response.lastName;
+        user.isAdmin = response.isAdmin;
+        user.img = response.img;
+        if (user.isAdmin) {
+          console.log("this user is admin " + user.firstName);
+          this.isAdmin = true;
+        }
+        else {
+          this.isAdmin = false;
+        }
         const token = response.token;
         this.token = token;
         if (token) {
@@ -63,7 +81,14 @@ export class AuthService {
           console.log(expirationDate);
           this.saveAuthData(token, expirationDate);
           this.currentUser = user;
-          this.router.navigate(['/']);
+          if (this.redirectUrl) {
+            this.router.navigate([this.redirectUrl]);
+            this.redirectUrl = null;
+          }
+          else {
+            this.router.navigate(['/']);
+          }
+
         }
       }, error => {
         this.authStatusListener.next(false);
@@ -88,6 +113,9 @@ export class AuthService {
   logout() {
     this.token = null;
     this.isAuthenticated = false;
+    if (this.getIsAdmin()) {
+      this.isAdmin = false;
+    }
     this.authStatusListener.next(false);
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
@@ -128,4 +156,43 @@ export class AuthService {
       return this.currentUser;
     }
   }
+
+  isExist() {
+    if (this.currentUser) {
+      console.log("this user is exist");
+      return true;
+    }
+    return false;
+  }
+
+  setUserImage(firstName: string, lastName: string, email: string, password: string, img: string, isAdmin: boolean) {
+
+    const user: User = {firstName: firstName, lastName: lastName, email: email, password: password, img: img, isAdmin: isAdmin}
+    this.http
+    .post("http://localhost:3000/api/user/studentIdRequest", user)
+    .subscribe(response => {
+      console.log("i'm in auth service in set user image " + response);
+      this.router.navigate(['/']);
+    }, error => {
+      this.authStatusListener.next(false);
+    });
+
+  }
+
+
+  // updatePost(id: string, title: string, content: string) {
+  //   const post: Post = { id: id, title: title, content: content };
+  //   this.http
+  //     .put("http://localhost:3000/api/posts/" + id, post)
+  //     .subscribe(response => {
+  //       const updatedPosts = [...this.posts];
+  //       const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);
+  //       updatedPosts[oldPostIndex] = post;
+  //       this.posts = updatedPosts;
+  //       this.postsUpdated.next([...this.posts]);
+  //       this.router.navigate(["/"]);
+  //     });
+  // }
+
+
 }

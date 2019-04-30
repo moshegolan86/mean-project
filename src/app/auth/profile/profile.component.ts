@@ -8,9 +8,9 @@ import { AuthService } from "../auth.service";
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class profileComponent implements OnInit,OnDestroy{
+export class profileComponent implements OnInit, OnDestroy {
 
-
+constructor (public authService: AuthService) {}
 
 
   ngOnInit() {
@@ -20,4 +20,19 @@ export class profileComponent implements OnInit,OnDestroy{
   ngOnDestroy() {
 
   }
+
+  // changeListener($event, index: number): void {
+  //   this.readThis($event.target, index);
+  // }
+
+
+  // readThis(inputValue: any, index: number): void {
+  //   var file:File = inputValue.files[0];
+  //   var myReader:FileReader = new FileReader();
+
+  //   myReader.onloadend = (e) => {
+  //       this.authService.getCurrentUser().img = myReader.result.toString();
+  //   }
+  //   myReader.readAsDataURL(file);
+  // }
 }

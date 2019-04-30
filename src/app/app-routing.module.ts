@@ -7,18 +7,22 @@ import { registerComponent } from './auth/register/register.component';
 import { AuthGuard } from './auth/auth.guard';
 import { profileComponent } from './auth/profile/profile.component';
 import { contactComponent } from './views/contact/contact.component';
+import { adminComponent } from './auth/admin/admin.component';
+import { studentIdComponent } from './views/studentId/studentId.component';
 
 const routes: Routes = [
   { path: '', component: PostListComponent},
   { path: 'register', component: registerComponent},
   { path: 'login', component: loginComponent},
   { path: 'userprofile', component: profileComponent},
-  { path: 'contactUs', component: contactComponent}
+  { path: 'contactUs', component: contactComponent},
+  { path: 'admin', component: adminComponent },
+  { path: 'studentIdRequest', component: studentIdComponent, canActivate: [AuthGuard], data: {roles: ['user']} }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers:[AuthGuard]
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }

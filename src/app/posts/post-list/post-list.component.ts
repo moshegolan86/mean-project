@@ -3,6 +3,8 @@ import { Subscription } from 'rxjs';
 
 import { Post } from "../post.model";
 import { PostsService } from "../posts.service";
+import { AuthService } from 'src/app/auth/auth.service';
+import { AuthGuard } from 'src/app/auth/auth.guard';
 
 @Component({
   selector: "app-post-list",
@@ -16,7 +18,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   isLoading = false;
   slideIndex = 1;
 
-  constructor(public postsService: PostsService) {}
+  constructor(public postsService: PostsService, public authGuard: AuthGuard, public authService: AuthService) {}
 
   ngOnInit() {
     this.isLoading = true;

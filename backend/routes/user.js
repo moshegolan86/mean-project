@@ -1,10 +1,15 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+// npm install randomstring
+const randomString = require('randomstring');
 
 const User = require("../models/user");
 
 const router = express.Router();
+
+// for email verfication
+const secretToken = randomString.generate();
 
 router.post("/register", (req, res, next) => {
   bcrypt.hash(req.body.password, 10).then(hash => {
@@ -58,7 +63,11 @@ router.post("/login", (req, res, next) => {
       );
       res.status(200).json({
         token: token,
-        expiresIn: 3600
+        expiresIn: 3600,
+        firstName: fetchedUser.firstName,
+        lastName: fetchedUser.lastName,
+        isAdmin: fetchedUser.isAdmin,
+        img: fetchedUser.img
       });
     })
     .catch(err => {
@@ -66,6 +75,30 @@ router.post("/login", (req, res, next) => {
         message: "Auth failed"
       });
     });
+});
+
+
+router.post("/studentIdRequest", (req, res, next) => {
+  const user = new User({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    password: req.body.password,
+    img: req.body.img,
+    isAdmin: req.body.isAdmin
+
+  });
+  console.log(req.body.email);
+  User.findOneAndUpdate({ email: req.body.email }, {img: req.body.img})
+  .then(result => {
+    console.log(result);
+    res.status(200).json({ message: "image Update successful!" });
+  })
+  .catch(err => {
+    return res.status(401).json({
+      message: "setting image failed"
+    });
+  });
 });
 
 module.exports = router;

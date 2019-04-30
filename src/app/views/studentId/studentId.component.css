@@ -1,0 +1,9 @@
+.z-depth-1-half {
+  height: 100px;
+  width: 100px;
+  border: 1px solid black;
+}
+
+.pl-lg-5, .px-lg-5 {
+  margin-bottom: 20%;
+}

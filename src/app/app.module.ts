@@ -23,6 +23,8 @@ import { registerComponent } from './auth/register/register.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { profileComponent } from './auth/profile/profile.component';
 import { contactComponent } from './views/contact/contact.component';
+import { adminComponent } from './auth/admin/admin.component';
+import { studentIdComponent } from './views/studentId/studentId.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { contactComponent } from './views/contact/contact.component';
     loginComponent,
     registerComponent,
     profileComponent,
-    contactComponent
+    contactComponent,
+    adminComponent,
+    studentIdComponent
   ],
   imports: [
     BrowserModule,

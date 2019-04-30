@@ -34,3 +34,7 @@ mat-toolbar {
 .email-text {
   color: #a6cb3a;
 }
+
+.navbar {
+  border: 1px solid red;
+}

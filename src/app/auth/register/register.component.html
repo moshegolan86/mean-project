@@ -16,14 +16,14 @@
                   <!-- First name -->
                   <div class="md-form">
                       <input type="text" name="firstName" ngModel #firstNameInput="ngModel" placeholder="First Name" id="materialRegisterFormFirstName" class="form-control" required firstName>
-                      <mat-error *ngIf="firstNameInput.invalid && firstNameInput.touched">* FirstName required</mat-error>
+                      <mat-error *ngIf="(firstNameInput.invalid) && (firstNameInput.touched || submitted)">* FirstName required</mat-error>
                   </div>
               </div>
               <div class="col">
                   <!-- Last name -->
                   <div class="md-form">
                       <input type="text" name="lastName" ngModel #lastNameInput="ngModel" placeholder="Last Name" id="materialRegisterFormLastName" class="form-control" required lastName>
-                      <mat-error *ngIf="lastNameInput.invalid && lastNameInput.touched">* LastName required</mat-error>
+                      <mat-error *ngIf="(lastNameInput.invalid) && (lastNameInput.touched || submitted)">* LastName required</mat-error>
                   </div>
               </div>
           </div>
@@ -31,7 +31,7 @@
           <!-- E-mail -->
           <div class="md-form mt-0">
               <input type="email" name="email" ngModel #emailInput="ngModel" placeholder="E-mail" id="materialRegisterFormEmail" class="form-control" pattern="[a-z0-9._%+-]+@ac.sce.ac.il$" required email>
-              <mat-error *ngIf="emailInput.invalid && emailInput.touched">* Email required</mat-error>
+              <mat-error *ngIf="(emailInput.invalid) && (emailInput.touched || submitted)">* Email required</mat-error>
               <small id="materialRegisterFormEmailHelpBlock" class="form-text text-muted mb-4">
                 Must be an SCE Email
               </small>
@@ -40,7 +40,7 @@
           <!-- Password -->
           <div class="md-form">
               <input type="password" name="password" ngModel #passInput="ngModel" placeholder="Password" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock" pattern="[a-z0-9._%+-]{8,}$" required password>
-              <mat-error *ngIf="passInput.invalid && passInput.touched">* Password required</mat-error>
+              <mat-error *ngIf="(passInput.invalid) && (passInput.touched || submitted)">* Password required</mat-error>
               <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
                   At least 8 characters
               </small>

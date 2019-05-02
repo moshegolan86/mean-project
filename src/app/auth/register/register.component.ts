@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 export class registerComponent implements OnInit, OnDestroy {
   isLoading = false;
   isInvalidInput = false;
+  submitted = false;
   private authStatusSub: Subscription;
   constructor(public authService: AuthService) {}
 
@@ -25,13 +26,15 @@ export class registerComponent implements OnInit, OnDestroy {
 
   onRegister(form: NgForm) {
     if (form.invalid) {
+      this.submitted = true;
       return;
     }
 
     this.isLoading = true;
     this.authService.createUser(form.value.email, form.value.password, form.value.firstName,
-      form.value.lastName, form.value.isAdmin, null);
+      form.value.lastName, form.value.isAdmin, null, null, null);
     this.isInvalidInput = false;
+    this.submitted = false;
   }
 
   ngOnDestroy() {

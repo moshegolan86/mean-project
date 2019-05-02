@@ -20,3 +20,12 @@
 		transform: rotate(360deg);
 	}
 }
+
+.container {
+  margin-bottom: 5rem;
+}
+
+.btn-default {
+  /* important removed in angular-bootstrap-md/scss/core/_mixins line 270; */
+  background-color: #6c757d;
+}

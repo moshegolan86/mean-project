@@ -1,3 +1,88 @@
-<img [src]="this.authService.getCurrentUser()?.img" height= "200">
+<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+<!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script> -->
+<!------ Include the above in your HEAD tag ---------->
 
+<div class="container" style="padding-top: 60px;">
+  <h1 class="page-header">{{ this.authService.getCurrentUser().firstName}} {{ this.authService.getCurrentUser().lastName}}</h1>
+  <div class="row">
+    <!-- left column -->
+    <div class="col-md-4 col-sm-6 col-xs-12">
+      <div class="text-center">
+        <img [src]="this.url" class="avatar img-circle img-thumbnail" alt="avatar" style="height: 300px;">
+        <h6>Upload a different photo...</h6>
+        <input type="file" class="text-center center-block well well-sm" (change)="onImgUpload($event)">
+      </div>
+    </div>
+    <!-- edit form column -->
+    <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+      <div class="alert alert-info alert-dismissable">
+        <a class="panel-close close" data-dismiss="alert">×</a>
+        <i class="fa fa-coffee"></i>
+        <strong>alert</strong>. user personal details are shown in this page!
+      </div>
+      <h3>פרטים אישיים</h3>
+      <!-- form -->
+      <form (click)="onSaveChanges(myForm)" #myForm="ngForm" class="form-horizontal" role="form">
+        <div class="form-group">
+          <label class="col-lg-3 control-label">שם פרטי</label>
+          <div class="col-lg-8">
+            <input class="form-control" name="firstName" ngModel #firstNameInput="ngModel" [ngModel]="this.user.firstName" type="text" pattern="[a-zA-Z]{2,}$" required>
+            <mat-error *ngIf="(firstNameInput.invalid) && (firstNameInput.touched || submitted)">* FirstName required</mat-error>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">שם משפחה</label>
+          <div class="col-lg-8">
+            <input class="form-control" name="lastName" ngModel #lastNameInput="ngModel" [ngModel]="this.user.lastName" type="text" pattern="[a-zA-Z]{2,}$" required>
+            <mat-error *ngIf="(lastNameInput.invalid) && (lastNameInput.touched || submitted)">* LastName required</mat-error>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">טלפון</label>
+          <div class="col-lg-8">
+            <input class="form-control" name="phoneNumber" ngModel #phoneInput="ngModel" [ngModel]= "this.user.phoneNumber" type="text" pattern="[0-9]{10}$" required>
+            <mat-error *ngIf="(phoneInput.invalid) && (phoneInput.touched || submitted)">* שדה טלפון נדרש</mat-error>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">ת.ז</label>
+          <div class="col-lg-8">
+            <input class="form-control" name="userId" ngModel #idInput="ngModel" [ngModel]="this.user.userId" type="text" pattern="[0-9]{9}$" required>
+            <mat-error *ngIf="(idInput.invalid) && (idInput.touched || submitted)">* מילוי שדה ת.ז חובה</mat-error>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-lg-3 control-label">E-mail</label>
+          <div class="col-lg-8">
+            <input class="form-control" name="email" ngModel #emailInput="ngModel" [ngModel]="this.user.email" type="text" pattern="[a-z0-9._%+-]+@ac.sce.ac.il$" required>
+            <mat-error *ngIf="(emailInput.invalid) && (emailInput.touched || submitted)">* Email required</mat-error>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">סיסמא</label>
+          <div class="col-md-8">
+            <input class="form-control" name="password" ngModel #passInput="ngModel" [ngModel]="this.user.password" type="password" pattern="[a-z0-9._%+-]{8,}" required>
+            <mat-error *ngIf="(passInput.invalid) && (passInput.touched || submitted)">* password required</mat-error>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-3 control-label">אשר סיסמא</label>
+          <div class="col-md-8">
+            <input class="form-control" name="retypePassword" ngModel #retypeInput="ngModel" [ngModel]="this.user.password" type="password" required>
+            <mat-error *ngIf="passNotEqual || submitted">password not equal</mat-error>
+          </div>
+        </div>
 
+        <div class="form-group">
+          <label class="col-md-3 control-label"></label>
+          <div class="col-md-8">
+            <input class="btn btn-primary" value="Save Changes" type="button">
+            <span></span>
+            <input class="btn btn-default" (click) ="onCancel()" value="Cancel" type="reset">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

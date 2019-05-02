@@ -5,5 +5,7 @@ export interface User {
   lastName: string;
   img: String;
   isAdmin: boolean;
+  phoneNumber: String;
+  userId: String;
 
 }

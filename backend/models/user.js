@@ -7,7 +7,9 @@ var user = mongoose.Schema({
   firstName: { type: String, required: true},
   lastName: { type: String, required: true},
   img: {type: String, required: false},
-  isAdmin: { type: Boolean, required: true, default: false}
+  isAdmin: { type: Boolean, required: true, default: false},
+  phoneNumber: { type: String, required: false},
+  userId: { type: String, required: false}
   // temporaryToken: { type: String, required: true },
   // active: { type: Boolean, requirde: true, default: false }
 

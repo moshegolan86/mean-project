@@ -9,7 +9,7 @@ const User = require("../models/user");
 const router = express.Router();
 
 // for email verfication
-const secretToken = randomString.generate();
+//const secretToken = randomString.generate();
 
 router.post("/register", (req, res, next) => {
   bcrypt.hash(req.body.password, 10).then(hash => {
@@ -19,7 +19,9 @@ router.post("/register", (req, res, next) => {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       img: req.body.img,
-      isAdmin: req.body.isAdmin
+      isAdmin: req.body.isAdmin,
+      phoneNumber: req.body.phoneNumber,
+      userId: req.body.userId
     });
     console.log(user);
     user
@@ -67,7 +69,9 @@ router.post("/login", (req, res, next) => {
         firstName: fetchedUser.firstName,
         lastName: fetchedUser.lastName,
         isAdmin: fetchedUser.isAdmin,
-        img: fetchedUser.img
+        img: fetchedUser.img,
+        userId: fetchedUser.userId,
+        phoneNumber: fetchedUser.phoneNumber
       });
     })
     .catch(err => {
@@ -79,24 +83,38 @@ router.post("/login", (req, res, next) => {
 
 
 router.post("/studentIdRequest", (req, res, next) => {
-  const user = new User({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: req.body.password,
-    img: req.body.img,
-    isAdmin: req.body.isAdmin
 
-  });
   console.log(req.body.email);
   User.findOneAndUpdate({ email: req.body.email }, {img: req.body.img})
   .then(result => {
-    console.log(result);
+    //console.log(result);
     res.status(200).json({ message: "image Update successful!" });
   })
   .catch(err => {
     return res.status(401).json({
       message: "setting image failed"
+    });
+  });
+});
+
+router.post("/updateDetails", (req, res, next) => {
+  //let foundUser;
+  User.findOneAndUpdate({ email: req.body.email }, {firstName: req.body.firstName, lastName: req.body.lastName,
+    isAdmin: req.body.isAdmin, img: req.body.img, userId: req.body.userId, phoneNumber: req.body.phoneNumber,
+  password:  bcrypt.hash(req.body.password,10)})
+  .then(user => {
+    //console.log(result);
+    if (!user) {
+      return res.status(401).json({
+        message: "update failed"
+      });
+    }
+    //foundUser = user;
+    res.status(200).json({ message: "details Updated successful!" });
+  })
+  .catch(err => {
+    return res.status(401).json({
+      message: "setting details failed"
     });
   });
 });

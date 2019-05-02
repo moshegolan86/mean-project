@@ -12,8 +12,9 @@
             <form (submit)= "onSend(sendForm)" #sendForm="ngForm" class="text-center" style="color: #757575;">
 
                 <div class="form-row">
+
                   <div class="col">
-                      <select class="mdb-select md-form" required>
+                      <select class="mdb-select md-form" id="year" name="year" ngModel #yearInput="ngModel" required>
                           <option value="" disabled selected>שנה</option>
                           <option value="1">מכינה</option>
                           <option value="2">א׳</option>
@@ -22,30 +23,31 @@
                           <option value="5">ד׳</option>
                           <option value="6">תואר שני</option>
                       </select>
+                      <mat-error *ngIf="submitted && yearInput.invalid">שנה</mat-error>
                   </div>
                   <div class="col">
-                      <select class="mdb-select md-form" required>
+                      <select class="mdb-select md-form" id="campus" ngModel #campusInput="ngModel" name="campus" required>
                           <option value="" disabled selected>קמפוס</option>
                           <option value="1">באר שבע</option>
                           <option value="2">אשדוד</option>
                       </select>
+                      <mat-error *ngIf="submitted && campusInput.invalid">קמפוס</mat-error>
                   </div>
-
                 </div>
 
                 <div class="form-row">
                     <div class="col">
                         <!-- First name -->
                         <div class="md-form">
-                            <input type="text" name="firstName" ngModel #firstNameInput="ngModel" placeholder="שם פרטי" [ngModel]="user?.firstName" id="materialRegisterFormFirstName" class="form-control" required firstName>
-                            <mat-error *ngIf="firstNameInput.invalid && firstNameInput.touched">* FirstName required</mat-error>
+                            <input type="text" name="firstName" ngModel #firstNameInput="ngModel" placeholder="שם פרטי" [ngModel]="user?.firstName" id="materialRegisterFormFirstName" class="form-control" pattern="[a-zA-Z]{2,}$" required firstName>
+                            <mat-error *ngIf="(firstNameInput.invalid) && (firstNameInput.touched || submitted)">* FirstName required</mat-error>
                         </div>
                     </div>
                     <div class="col">
                         <!-- Last name -->
                         <div class="md-form">
-                            <input type="text" name="lastName" ngModel #lastNameInput="ngModel" placeholder="שם משפחה" [ngModel]="user?.lastName" id="materialRegisterFormLastName" class="form-control" required lastName>
-                            <mat-error *ngIf="lastNameInput.invalid && lastNameInput.touched">* LastName required</mat-error>
+                            <input type="text" name="lastName" ngModel #lastNameInput="ngModel" placeholder="שם משפחה" [ngModel]="user?.lastName" id="materialRegisterFormLastName" class="form-control" pattern="[a-zA-Z]{2,}$" required lastName>
+                            <mat-error *ngIf="(lastNameInput.invalid) && (lastNameInput.touched || submitted)">* LastName required</mat-error>
                         </div>
                     </div>
                 </div>
@@ -53,7 +55,7 @@
                 <!-- E-mail -->
                 <div class="md-form mt-0">
                     <input type="email" name="email" ngModel #emailInput="ngModel" placeholder="E-mail" [ngModel]="user?.email" id="materialRegisterFormEmail" class="form-control" pattern="[a-z0-9._%+-]+@ac.sce.ac.il$" required email>
-                    <mat-error *ngIf="emailInput.invalid && emailInput.touched">* Email required</mat-error>
+                    <mat-error *ngIf="(emailInput.invalid) && (emailInput.touched || submitted)">* Email required</mat-error>
                     <small id="materialRegisterFormEmailHelpBlock" class="form-text text-muted mb-4">
                       Must be an SCE Email
                     </small>
@@ -61,8 +63,8 @@
 
                 <!-- id -->
                 <div class="md-form">
-                    <input type="id" name="id" ngModel #idInput="ngModel" placeholder="ת.ז" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock" pattern="[0-9]{9}$" required>
-                    <mat-error *ngIf="idInput.invalid && idInput.touched">* מילוי שדה ת.ז חובה</mat-error>
+                    <input type="text" name="id" ngModel #idInput="ngModel" placeholder="ת.ז" [ngModel]="user?.userId" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock" pattern="[0-9]{9}$" required userId>
+                    <mat-error *ngIf="(idInput.invalid) && (idInput.touched || submitted)">* מילוי שדה ת.ז חובה</mat-error>
                     <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
                         תשע ספרות, כולל ספרת ביקורת
                     </small>
@@ -70,27 +72,28 @@
 
                 <!-- phone number -->
                 <div class="md-form">
-                    <input type="phoneNumber" name="phoneNumber" ngModel #phoneInput="ngModel" placeholder="טלפון" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock" pattern="[0-9]{10}$" required>
-                    <mat-error *ngIf="phoneInput.invalid && phoneInput.touched">* שדה טלפון נדרש</mat-error>
+                    <input type="text" name="phoneNumber" ngModel #phoneInput="ngModel" [ngModel]="user?.phoneNumber" placeholder="טלפון" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock" pattern="[0-9]{10}$" required phoneNumber>
+                    <mat-error *ngIf="(phoneInput.invalid) && (phoneInput.touched || submitted)">* שדה טלפון נדרש</mat-error>
                 </div>
 
 
-                <form class="md-form">
-                    <div class="file-field" ng-app="testApp" ng-controller="testController">
-
+                <!-- <form class="md-form"> -->
+                    <div class="file-field" ng-app="testApp" ng-controller="testController" required>
+                      <img [src]="url" height="200" required> <br/>
                       <div class="d-flex justify-content-center">
                         <div class="btn btn-mdb-color btn-rounded float-left">
-                          <span>הוסף תמונה</span>
-                          <input type="file" accept="image/*" ng-model="imageSource" (change)="onImgUpload($event)">
+                          <span>Add Photo</span>
+                          <input type="file" required accept="image/*" name="imgUpload" ngModel #fileInput="ngModel" (change)="onImgUpload($event)">
+                          <mat-error *ngIf="!this.uploadedImg && submitted">נדרשת תמונה</mat-error>
                         </div>
                       </div>
-                      <img [src]="url" height="200" required> <br/>
+
                       <small style="color: red">"נא להעלות רק תמונת פנים ברורה וללא משקפי שמש, תמונה אחרת, לא תתקבל"</small>
                     </div>
-                  </form>
+                  <!-- </form> -->
 
                 <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">שלח/י</button>
-
+                <!-- <mat-error *ngIf="sendForm.invalid"></mat-error> -->
                 <hr>
 
             </form>

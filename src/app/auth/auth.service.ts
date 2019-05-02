@@ -33,9 +33,9 @@ export class AuthService {
     return this.isAdmin;
   }
 
-  createUser(email: string, password: string, firstName: string, lastName: string, isAdmin: boolean, img: String) {
+  createUser(email: string, password: string, firstName: string, lastName: string, isAdmin: boolean, img: String, phoneNumber: String, userId: String) {
     const user: User = { email: email, password: password, firstName: firstName, lastName: lastName,
-    img: null, isAdmin: isAdmin};
+    img: null, isAdmin: isAdmin, phoneNumber: null, userId: null};
     this.http
       .post("http://localhost:3000/api/user/register", user)
       .subscribe(response => {
@@ -51,9 +51,9 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    const user: User = { email: email, password: password, firstName: null, lastName: null, isAdmin: null, img: null};
+    const user: User = { email: email, password: password, firstName: null, lastName: null, isAdmin: null, img: null, phoneNumber: null, userId: null};
     this.http
-      .post<{ token: string; expiresIn: number, firstName: string, lastName: string, isAdmin: boolean, img: string}>(
+      .post<{ token: string; expiresIn: number, firstName: string, lastName: string, isAdmin: boolean, img: string, phoneNumber: String, userId: String }>(
         "http://localhost:3000/api/user/login",
         user
       )
@@ -62,6 +62,8 @@ export class AuthService {
         user.lastName = response.lastName;
         user.isAdmin = response.isAdmin;
         user.img = response.img;
+        user.userId = response.userId;
+        user.phoneNumber = response.phoneNumber;
         if (user.isAdmin) {
           console.log("this user is admin " + user.firstName);
           this.isAdmin = true;
@@ -165,34 +167,31 @@ export class AuthService {
     return false;
   }
 
-  setUserImage(firstName: string, lastName: string, email: string, password: string, img: string, isAdmin: boolean) {
+  setUserImage(url: string) {
 
-    const user: User = {firstName: firstName, lastName: lastName, email: email, password: password, img: img, isAdmin: isAdmin}
+    this.currentUser.img = url;
     this.http
-    .post("http://localhost:3000/api/user/studentIdRequest", user)
+    .post("http://localhost:3000/api/user/studentIdRequest", this.currentUser)
     .subscribe(response => {
       console.log("i'm in auth service in set user image " + response);
-      this.router.navigate(['/']);
+      //this.router.navigate(['/']);
     }, error => {
       this.authStatusListener.next(false);
     });
-
   }
 
+  updateUserDetails(user: User) {
+    this.currentUser = user;
+    this.http
+    .post("http://localhost:3000/api/user/updateDetails", this.currentUser)
+    .subscribe(response => {
+      //this.router.navigate(['/']);
 
-  // updatePost(id: string, title: string, content: string) {
-  //   const post: Post = { id: id, title: title, content: content };
-  //   this.http
-  //     .put("http://localhost:3000/api/posts/" + id, post)
-  //     .subscribe(response => {
-  //       const updatedPosts = [...this.posts];
-  //       const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);
-  //       updatedPosts[oldPostIndex] = post;
-  //       this.posts = updatedPosts;
-  //       this.postsUpdated.next([...this.posts]);
-  //       this.router.navigate(["/"]);
-  //     });
-  // }
+    }, error => {
+      this.authStatusListener.next(false);
+    });
+  }
+
 
 
 }

@@ -4,7 +4,7 @@
 }
 
 .no-touch .hi-icon-effect-6 .hi-icon:hover {
-	background: rgba(255,255,255,1);
+	background: rgb(0, 0, 0);
 	color: #64bb5d;
 }
 
@@ -28,4 +28,18 @@
 .btn-default {
   /* important removed in angular-bootstrap-md/scss/core/_mixins line 270; */
   background-color: #6c757d;
+}
+
+aaa {
+  position: absolute;
+  top: 130px;
+  right:110px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #a6cb3a;
+  transition: all 0.2s ease-in-out;
+}
+
+.font-weight-bold {
+  color: #00000096;
 }

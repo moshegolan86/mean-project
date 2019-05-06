@@ -15,14 +15,14 @@
               <div class="col">
                   <!-- First name -->
                   <div class="md-form">
-                      <input type="text" name="firstName" ngModel #firstNameInput="ngModel" placeholder="First Name" id="materialRegisterFormFirstName" class="form-control" required firstName>
+                      <input type="text" name="firstName" ngModel #firstNameInput="ngModel" placeholder="First Name" id="materialRegisterFormFirstName" class="form-control" pattern="[a-zA-Z ]{2,32}$" required firstName>
                       <mat-error *ngIf="(firstNameInput.invalid) && (firstNameInput.touched || submitted)">* FirstName required</mat-error>
                   </div>
               </div>
               <div class="col">
                   <!-- Last name -->
                   <div class="md-form">
-                      <input type="text" name="lastName" ngModel #lastNameInput="ngModel" placeholder="Last Name" id="materialRegisterFormLastName" class="form-control" required lastName>
+                      <input type="text" name="lastName" ngModel #lastNameInput="ngModel" placeholder="Last Name" id="materialRegisterFormLastName" class="form-control" pattern="[a-zA-Z ]{2,32}$" required lastName>
                       <mat-error *ngIf="(lastNameInput.invalid) && (lastNameInput.touched || submitted)">* LastName required</mat-error>
                   </div>
               </div>
@@ -42,7 +42,7 @@
               <input type="password" name="password" ngModel #passInput="ngModel" placeholder="Password" id="materialRegisterFormPassword" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock" pattern="[a-z0-9._%+-]{8,}$" required password>
               <mat-error *ngIf="(passInput.invalid) && (passInput.touched || submitted)">* Password required</mat-error>
               <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
-                  At least 8 characters
+                  סיסמה חייבת להכיל לפחות 8 תווים
               </small>
           </div>
 

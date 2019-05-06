@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 
 import { User } from "./user.model";
+import { headerComponent } from '../header/header.component';
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -14,6 +15,7 @@ export class AuthService {
   private currentUser: User;
   private isAdmin = false;
   public redirectUrl: string;
+  private hasImg = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -31,6 +33,10 @@ export class AuthService {
 
   getIsAdmin() {
     return this.isAdmin;
+  }
+
+  getHasImg() {
+    return this.hasImg;
   }
 
   createUser(email: string, password: string, firstName: string, lastName: string, isAdmin: boolean, img: String, phoneNumber: String, userId: String) {
@@ -71,6 +77,9 @@ export class AuthService {
         else {
           this.isAdmin = false;
         }
+        if (user.img !== null) {
+          this.hasImg = true;
+        }
         const token = response.token;
         this.token = token;
         if (token) {
@@ -90,6 +99,8 @@ export class AuthService {
           else {
             this.router.navigate(['/']);
           }
+
+
 
         }
       }, error => {
@@ -115,6 +126,7 @@ export class AuthService {
   logout() {
     this.token = null;
     this.isAuthenticated = false;
+    this.hasImg = false;
     if (this.getIsAdmin()) {
       this.isAdmin = false;
     }
@@ -185,8 +197,20 @@ export class AuthService {
     this.http
     .post("http://localhost:3000/api/user/updateDetails", this.currentUser)
     .subscribe(response => {
-      //this.router.navigate(['/']);
 
+
+    }, error => {
+      this.authStatusListener.next(false);
+    });
+  }
+
+  updatePassword(password: string) {
+    this.currentUser.password = password;
+    console.log("my password: " + this.currentUser.password);
+    this.http.post("http://localhost:3000/api/user/updatePassword", this.currentUser)
+    .subscribe(user => {
+      console.log("after call: " + user);
+      this.login(this.currentUser.email, this.currentUser.password);
     }, error => {
       this.authStatusListener.next(false);
     });

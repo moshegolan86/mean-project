@@ -39,14 +39,14 @@
                     <div class="col">
                         <!-- First name -->
                         <div class="md-form">
-                            <input type="text" name="firstName" ngModel #firstNameInput="ngModel" placeholder="שם פרטי" [ngModel]="user?.firstName" id="materialRegisterFormFirstName" class="form-control" pattern="[a-zA-Z]{2,}$" required firstName>
+                            <input type="text" name="firstName" ngModel #firstNameInput="ngModel" placeholder="שם פרטי" [ngModel]="user?.firstName" id="materialRegisterFormFirstName" class="form-control" pattern="[a-zA-Z ]{2,32}$" required firstName>
                             <mat-error *ngIf="(firstNameInput.invalid) && (firstNameInput.touched || submitted)">* FirstName required</mat-error>
                         </div>
                     </div>
                     <div class="col">
                         <!-- Last name -->
                         <div class="md-form">
-                            <input type="text" name="lastName" ngModel #lastNameInput="ngModel" placeholder="שם משפחה" [ngModel]="user?.lastName" id="materialRegisterFormLastName" class="form-control" pattern="[a-zA-Z]{2,}$" required lastName>
+                            <input type="text" name="lastName" ngModel #lastNameInput="ngModel" placeholder="שם משפחה" [ngModel]="user?.lastName" id="materialRegisterFormLastName" class="form-control" pattern="[a-zA-Z ]{2,32}$" required lastName>
                             <mat-error *ngIf="(lastNameInput.invalid) && (lastNameInput.touched || submitted)">* LastName required</mat-error>
                         </div>
                     </div>

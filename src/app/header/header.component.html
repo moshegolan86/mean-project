@@ -10,7 +10,7 @@
     <!-- Links -->
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link waves-light" mdbWavesEffect routerLink="/contactUs">צור קשר</a>
+        <a class="nav-link waves-light" mdbWavesEffect routerLink="/contactUs"><i class="fas fa-envelope pr-2"></i>צור קשר</a>
       </li>
       <li class="nav-item">
         <a class="nav-link waves-light" mdbWavesEffect>אודות</a>
@@ -41,7 +41,8 @@
       </aa>
       <li class="nav-item avatar dropdown" dropdown>
         <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
-          <img src="https://image.flaticon.com/icons/png/512/97/97895.png" alt="" class="img-fluid rounded-circle z-depth-0"></a>
+          <img src="https://image.flaticon.com/icons/png/512/97/97895.png" *ngIf="!this.hasImg" alt="avatar" class="img-fluid rounded-circle z-depth-0">
+          <img [src]="this.authService.getCurrentUser()?.img" alt="avatar" *ngIf="this.hasImg" class="img-fluid rounded-circle z-depth-0"></a>
         <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
 
           <a class="dropdown-item waves-light" routerLink="/login" *ngIf="!isAuthenticated" href="#">התחבר</a>

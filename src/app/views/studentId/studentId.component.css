@@ -7,3 +7,7 @@
 .pl-lg-5, .px-lg-5 {
   margin-bottom: 20%;
 }
+
+img {
+  max-width: 110%;
+}

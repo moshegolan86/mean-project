@@ -3,7 +3,7 @@ import { NgForm } from "@angular/forms";
 
 import { AuthService } from "../auth.service";
 import { User } from '../user.model';
-import { routerNgProbeToken } from '@angular/router/src/router_module';
+
 
 @Component ({
   selector: 'app-auth-profile',
@@ -15,6 +15,7 @@ url = '';
 public user: User;
 submitted: boolean = false;
 passNotEqual: boolean = false;
+isLogged: boolean;
 
 constructor (public authService: AuthService) {}
 
@@ -27,7 +28,6 @@ constructor (public authService: AuthService) {}
     else {
       this.url = "http://www.igdir.edu.tr/Addons/Resmi/Images/User-Profile/profil-19.png"
     }
-
   }
 
   onSaveChanges(form: NgForm) {
@@ -36,31 +36,57 @@ constructor (public authService: AuthService) {}
       return;
     }
 
-    if (form.value.password !== form.value.retypePassword) {
-      this.passNotEqual = true;
-      return;
-    }
-    else {
-      this.passNotEqual = false;
-    }
-    this.user = {
-      firstName: form.value.firstName,
-      lastName: form.value.lastName,
-      email: form.value.email,
-      password: form.value.password,
-      img: this.url,
-      phoneNumber: form.value.phoneNumber,
-      userId: form.value.userId,
-      isAdmin: this.authService.getCurrentUser().isAdmin
-    };
+    if (confirm("האם לשמור את השינויים?")) {
+      this.user = {
+        firstName: form.value.firstName,
+        lastName: form.value.lastName,
+        email: form.value.email,
+        password: form.value.password,
+        img: this.url,
+        phoneNumber: form.value.phoneNumber,
+        userId: form.value.userId,
+        isAdmin: this.authService.getCurrentUser().isAdmin
+      };
 
-    this.authService.updateUserDetails(this.user);
-    this.submitted = false;
+      this.authService.updateUserDetails(this.user);
+      this.submitted = false;
+    }
 
   }
 
-  onCancel() {
-    this.user = this.authService.getCurrentUser();
+  onCancel(form: NgForm) {
+
+    if (confirm("לבטל את השינויים?")) {
+      form.resetForm({
+        firstName: this.authService.getCurrentUser().firstName,
+        lastName: this.authService.getCurrentUser().lastName,
+        phoneNumber: this.authService.getCurrentUser().phoneNumber,
+        userId: this.authService.getCurrentUser().userId,
+        email: this.authService.getCurrentUser().email
+      });
+    }
+  }
+
+  onPasswordChange(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
+    if (this.authService.getCurrentUser().password !== form.value.oldPassword) {
+      this.isLogged = false;
+    }
+    else {
+      if (this.authService.getIsAuth()) {
+        this.isLogged = true;
+        if (form.value.newPassword === form.value.retypePassword) {
+          this.passNotEqual = false;
+          this.authService.updatePassword(form.value.newPassword);
+
+        }
+        else {
+          this.passNotEqual = true;
+        }
+      }
+    }
   }
 
   onImgUpload(event) {

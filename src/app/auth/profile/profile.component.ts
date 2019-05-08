@@ -1,8 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild, ElementRef } from '@angular/core';
 import { NgForm } from "@angular/forms";
+import { Subscription } from 'rxjs';
+
 
 import { AuthService } from "../auth.service";
 import { User } from '../user.model';
+
 
 
 @Component ({
@@ -11,11 +14,18 @@ import { User } from '../user.model';
   styleUrls: ['./profile.component.css']
 })
 export class profileComponent implements OnInit, OnDestroy {
+@ViewChild('closeModal') private closeModal: ElementRef;
 url = '';
 public user: User;
 submitted: boolean = false;
+passChangeSubmitted: boolean = false;
 passNotEqual: boolean = false;
 isLogged: boolean;
+successMsg: boolean;
+failedMsg: boolean;
+hideModal: boolean = false;
+
+private authStatusSub: Subscription;
 
 constructor (public authService: AuthService) {}
 
@@ -69,6 +79,7 @@ constructor (public authService: AuthService) {}
 
   onPasswordChange(form: NgForm) {
     if (form.invalid) {
+      this.passChangeSubmitted = true;
       return;
     }
     if (this.authService.getCurrentUser().password !== form.value.oldPassword) {
@@ -80,10 +91,15 @@ constructor (public authService: AuthService) {}
         if (form.value.newPassword === form.value.retypePassword) {
           this.passNotEqual = false;
           this.authService.updatePassword(form.value.newPassword);
+          if (form.value.oldPassword !== this.authService.getCurrentUser().password) {
+            this.successMsg = true;
+            this.passChangeSubmitted = false;
 
+          }
         }
         else {
           this.passNotEqual = true;
+          this.failedMsg = true;
         }
       }
     }

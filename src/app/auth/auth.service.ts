@@ -4,7 +4,6 @@ import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 
 import { User } from "./user.model";
-import { headerComponent } from '../header/header.component';
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -210,7 +209,6 @@ export class AuthService {
     this.http.post("http://localhost:3000/api/user/updatePassword", this.currentUser)
     .subscribe(user => {
       console.log("after call: " + user);
-      this.login(this.currentUser.email, this.currentUser.password);
     }, error => {
       this.authStatusListener.next(false);
     });

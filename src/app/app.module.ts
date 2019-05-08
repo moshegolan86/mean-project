@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { headerComponent } from './header/header.component';
-import { PostListComponent } from './posts/post-list/post-list.component';
+import { homeComponent } from './views/home/home.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
@@ -25,13 +25,15 @@ import { profileComponent } from './auth/profile/profile.component';
 import { contactComponent } from './views/contact/contact.component';
 import { adminComponent } from './auth/admin/admin.component';
 import { studentIdComponent } from './views/studentId/studentId.component';
+import { footerComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PostCreateComponent,
     headerComponent,
-    PostListComponent,
+    footerComponent,
+    homeComponent,
     loginComponent,
     registerComponent,
     profileComponent,

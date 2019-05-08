@@ -22,7 +22,8 @@ export class PostsService {
             return {
               title: post.title,
               content: post.content,
-              id: post._id
+              id: post._id,
+              postImg: post.postImg
             };
           });
         })
@@ -38,13 +39,13 @@ export class PostsService {
   }
 
   getPost(id: string) {
-    return this.http.get<{ _id: string; title: string; content: string }>(
+    return this.http.get<{ _id: string; title: string; content: string, postImg: string }>(
       "http://localhost:3000/api/posts/" + id
     );
   }
 
   addPost(title: string, content: string) {
-    const post: Post = { id: null, title: title, content: content };
+    const post: Post = { id: null, title: title, content: content,postImg: null };
     this.http
       .post<{ message: string; postId: string }>(
         "http://localhost:3000/api/posts",
@@ -60,7 +61,7 @@ export class PostsService {
   }
 
   updatePost(id: string, title: string, content: string) {
-    const post: Post = { id: id, title: title, content: content };
+    const post: Post = { id: id, title: title, content: content, postImg: null };
     this.http
       .put("http://localhost:3000/api/posts/" + id, post)
       .subscribe(response => {

@@ -125,10 +125,9 @@ router.post("/updatePassword", (req, res, next) => {
         message: "Auth failed"
       });
     }
-    console.log("before bcrypt: " + req.body.password);
-    bcrypt.hash(req.body.password, 10).then(hash => {
+    bcrypt.hash(req.body.password, 10)
+    .then(hash => {
       user.password = hash;
-      console.log("hereeeee " + user.password);
       user
         .save()
         .then(result => {
@@ -142,68 +141,20 @@ router.post("/updatePassword", (req, res, next) => {
             error: err
           });
         });
+    })
+    .catch(err => {
+      return res.status(401).json({
+        message: "setting details failed"
+      });
     });
   })
+  .catch(err => {
+    return res.status(401).json({
+      message: "setting details failed"
+    });
+  });
 
 });
-
-// router.post("/updatePassword", (req, res, next) => {
-//   User.findOne({ email: req.body.email })
-//   .then((user) => {
-//       user.setPassword(req.body.newPassword,(err, user) => {
-//           if (err) return next(err);
-//           user.save();
-//           res.status(200).json({ message: 'password change successful' });
-//       });
-
-//   })
-    //user.setPassword(req.body.password);
-  //   console.log("send user to login");
-  //   user
-  //   .save()
-  //   .then(result => {
-  //     res.status(201).json({
-  //       message: "User updated!",
-  //       result: result
-  //     });
-  //   })
-  //   .catch(err => {
-  //     res.status(500).json({
-  //       error: err
-  //     });
-  //   });
-  //   res.status(200).json({ message: "password Updateded successfuly!" });
-  // })
-  // .catch(err => {
-  //   return res.status(401).json({
-  //     message: "setting details failed"
-  //   });
-  // });
-// });
-
-// router.post("/updatePassword", (req, res, next) =>
-//   function(user, newPassword, callback){
-//     var query = {email: req.body.email};
-//     bcrypt.genSalt(10, function(err, salt){
-//       bcrypt.hash(newPassword, salt, function(err, hash){
-//       if (err) throw err;
-//       else{
-//         user.password = hash;
-//         User.findOneAndUpdate(query, { $set: { password: user.password }}, {new: true}, function(err, newUser){
-//           if(err) throw err;
-//           else{
-//           bcrypt.compare(newPassword, newUser.password, function(err, isMatch){
-//               if(err) throw err;
-//               console.log(isMatch);
-//               callback(null, isMatch);
-//             });
-//           }
-//         });
-//       }
-//     });
-//   });
-// });
-
 
 
 module.exports = router;

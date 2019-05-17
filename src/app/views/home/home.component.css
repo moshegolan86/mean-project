@@ -37,3 +37,8 @@ mat-spinner {
   /* you need to match the shadow color to your background or image border for the desired effect*/
   box-shadow: 0 0 8px 8px #332a2a inset;
 }
+
+.view img {
+  width: max-content;
+  height: 250px;
+}

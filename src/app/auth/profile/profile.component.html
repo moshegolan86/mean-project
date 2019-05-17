@@ -35,7 +35,6 @@
         </div>
         <div class="modal-footer d-flex justify-content-center">
           <button class="btn btn-deep-orange" (click)="onPasswordChange(passForm)" data-dismiss="modal" [disabled]="passForm.invalid">שמור</button>
-          <!-- <mat-error *ngIf="this.passChangeSubmitted || retypeInput.invalid"></mat-error> -->
         </div>
       </div>
     </div>
@@ -66,6 +65,10 @@
       <div class="alert alert-danger" role="alert" *ngIf="this.failedMsg">
         <a class="panel-close close" data-dismiss="alert">×</a>
         משהו השתבש!
+      </div>
+      <div class="alert alert-success" role="alert" *ngIf="this.savedDetails">
+        <a class="panel-close close" data-dismiss="alert">×</a>
+        הפרטים עודכנו
       </div>
       <h3>פרטים אישיים</h3>
       <!-- form -->

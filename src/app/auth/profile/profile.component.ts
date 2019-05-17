@@ -21,6 +21,7 @@ submitted: boolean = false;
 passChangeSubmitted: boolean = false;
 passNotEqual: boolean = false;
 isLogged: boolean;
+savedDetails: boolean = false;
 successMsg: boolean;
 failedMsg: boolean;
 hideModal: boolean = false;
@@ -41,12 +42,14 @@ constructor (public authService: AuthService) {}
   }
 
   onSaveChanges(form: NgForm) {
+    //this.savedDetails = false;
     if (form.invalid) {
       this.submitted = true;
       return;
     }
 
     if (confirm("האם לשמור את השינויים?")) {
+      //this.savedDetails = true;
       this.user = {
         firstName: form.value.firstName,
         lastName: form.value.lastName,
@@ -57,11 +60,9 @@ constructor (public authService: AuthService) {}
         userId: form.value.userId,
         isAdmin: this.authService.getCurrentUser().isAdmin
       };
-
       this.authService.updateUserDetails(this.user);
       this.submitted = false;
     }
-
   }
 
   onCancel(form: NgForm) {

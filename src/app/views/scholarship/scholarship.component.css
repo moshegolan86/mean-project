@@ -1,0 +1,22 @@
+.table {
+  color: rgba(255, 255, 255, 0.67);
+  margin-top: 2rem;
+  position: absolute;
+  top: 550px;
+  right: 10%;
+  max-width: 80%;
+  margin-bottom: 10%;
+}
+
+tr {
+  height: 100px;
+}
+
+img {
+  height: 380px;
+  width: 80%;
+  position: absolute;
+  right: 10%;
+  top: 90px;
+
+}

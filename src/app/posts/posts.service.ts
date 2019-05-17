@@ -45,7 +45,7 @@ export class PostsService {
   }
 
   addPost(title: string, content: string) {
-    const post: Post = { id: null, title: title, content: content,postImg: null };
+    const post: Post = { id: null, title: title, content: content, postImg: null };
     this.http
       .post<{ message: string; postId: string }>(
         "http://localhost:3000/api/posts",

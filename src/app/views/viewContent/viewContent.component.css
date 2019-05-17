@@ -1,0 +1,20 @@
+img {
+  height: 420px;
+  width: 80%;
+  position: absolute;
+  right: 10%;
+
+}
+
+.text-location {
+
+  position: absolute;
+  top: 515px;
+  left: 180px;
+  width: 75%;
+  background-color: initial;
+}
+
+.card-title {
+  direction: rtl;
+}

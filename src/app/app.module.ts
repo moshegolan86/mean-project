@@ -26,6 +26,13 @@ import { contactComponent } from './views/contact/contact.component';
 import { adminComponent } from './auth/admin/admin.component';
 import { studentIdComponent } from './views/studentId/studentId.component';
 import { footerComponent } from './footer/footer.component';
+import { viewContentComponent } from './views/viewContent/viewContent.component';
+import { aboutComponent } from './views/about/about.component';
+import { tutorsComponent } from './views/tutors/tutors.component';
+import { examsBankComponent } from './views/examsBank/examsBank.component';
+import { infoComponent } from './views/info/info.component';
+import { reservesComponent } from './views/reserves/reserves.component';
+import { scholarshipComponent } from './views/scholarship/scholarship.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +46,14 @@ import { footerComponent } from './footer/footer.component';
     profileComponent,
     contactComponent,
     adminComponent,
-    studentIdComponent
+    studentIdComponent,
+    viewContentComponent,
+    aboutComponent,
+    tutorsComponent,
+    examsBankComponent,
+    infoComponent,
+    reservesComponent,
+    scholarshipComponent
   ],
   imports: [
     BrowserModule,

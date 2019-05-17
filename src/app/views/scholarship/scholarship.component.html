@@ -1,0 +1,36 @@
+<div class="container">
+    <img src="https://mahfouzadedimeji.com/wp-content/uploads/2017/07/scholarship.jpg">
+    <table dir="rtl" class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">שם המלגה</th>
+          <th scope="col">תיאור</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody *ngFor="let scholar of this.scholars">
+        <tr>
+          <th scope="row"></th>
+          <td>{{scholar?.title}}</td>
+          <td>{{scholar?.content}}</td>
+          <td>
+            <a class="btn btn-primary btn-rounded btn-md">הגשת מועמדות</a>
+          </td>
+        </tr>
+        <!-- <tr>
+          <th scope="row">2</th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Larry</td>
+          <td>the Bird</td>
+          <td>@twitter</td>
+        </tr> -->
+      </tbody>
+    </table>
+
+</div>

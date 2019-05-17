@@ -1,153 +1,62 @@
-  <div class="main-head image-blurred-edge" style="background-image: url(https://www.aguda.org.il/media/Modules/AGD/pages/head_pics/4799_tumb_1920Xauto.jpg);">
+  <div class="main-head image-blurred-edge" style="background-image: url(//www.sce.ac.il/filestock/file/1543834742378-0.jpg);">
+    <h2 class = "text-monospace white-text">בהצלחה בסמסטר ב׳</h2>
   </div>
 
 
-<!-- Grid column -->
-<!-- <div class="col-md-12">
-
-    <button type="button" class="btn btn-outline-light btn-rounded waves-effect" routerLink="/studentIdRequest"><i class="far fa-id-card pr-2"></i>תעודת סטודנט</button>
-    <button type="button" class="btn btn-outline-light btn-rounded waves-effect"><i class="fas fa-wheelchair pr-2"
-        aria-hidden="true"></i>מידע בקליק</button>
-    <button type="button" class="btn btn-outline-light btn-rounded waves-effect"><i class="fas fa-user-graduate pr-2"
-        aria-hidden="true"></i>בנק בחינות</button>
-    <button type="button" class="btn btn-outline-light btn-rounded waves-effect" onclick="location.href='https://secure.wanted.co.il/sce.wanted.co.il/'"><i class="fas fa-coins pr-2"
-        aria-hidden="true"></i>מערכת משרות</button>
-    <button type="button" class="btn btn-outline-light btn-rounded waves-effect"><i class="far fa-money-bill-alt pr-2"
-        aria-hidden="true"></i>מלגות</button>
-    <button type="button" class="btn btn-outline-light btn-rounded waves-effect"><i class="fas fa-train pr-2"
-        aria-hidden="true"></i>מילואים</button>
-        <button type="button" class="btn btn-outline-light btn-rounded waves-effect"><i class="fas fa-train pr-2"
-          aria-hidden="true"></i>מורים פרטיים</button>
-
-  </div> -->
-
-  <!-- Card content -->
   <div class="card-body card-body-cascade text-center">
     <div class="social-counters">
       <button type="button" class="btn btn-outline-light btn-rounded waves-effect" routerLink="/studentIdRequest"><i class="far fa-id-card pr-2"></i>תעודת סטודנט</button>
-      <button type="button" class="btn btn-outline-light btn-rounded waves-effect"><i class="fas fa-info-circle pr-2"
+      <button type="button" class="btn btn-outline-light btn-rounded waves-effect" routerLink="/info"><i class="fas fa-info-circle pr-2"
           aria-hidden="true"></i>מידע בקליק</button>
-      <button type="button" class="btn btn-outline-light btn-rounded waves-effect"><i class="fas fa-user-graduate pr-2"
+      <button type="button" class="btn btn-outline-light btn-rounded waves-effect" routerLink="/examsBank"><i class="fas fa-user-graduate pr-2"
           aria-hidden="true"></i>בנק בחינות</button>
       <button type="button" class="btn btn-outline-light btn-rounded waves-effect" onclick="location.href='https://secure.wanted.co.il/sce.wanted.co.il/'"><i class="fas fa-coins pr-2"
           aria-hidden="true"></i>מערכת משרות</button>
-      <button type="button" class="btn btn-outline-light btn-rounded waves-effect"><i class="far fa-money-bill-alt pr-2"
+      <button type="button" class="btn btn-outline-light btn-rounded waves-effect" routerLink="/scholarship"><i class="far fa-money-bill-alt pr-2"
           aria-hidden="true"></i>מלגות</button>
-      <button type="button" class="btn btn-outline-light btn-rounded waves-effect"><i class="fas fa-train pr-2"
+      <button type="button" class="btn btn-outline-light btn-rounded waves-effect" routerLink="/reserves"><i class="fas fa-train pr-2"
           aria-hidden="true"></i>מילואים</button>
-          <button type="button" class="btn btn-outline-light btn-rounded waves-effect"><i class="fas fa-chalkboard-teacher pr-2"
+          <button type="button" class="btn btn-outline-light btn-rounded waves-effect" routerLink="/tutors"><i class="fas fa-chalkboard-teacher pr-2"
             aria-hidden="true"></i>מורים פרטיים</button>
     </div>
     <!-- Social shares -->
 
   </div>
-  <!-- Card content -->
 
-<!-- Section: Blog v.2 -->
-<section class="text-center my-5">
 
-  <!-- Section heading -->
-  <!-- <h2 class="h1-responsive font-weight-bold my-5">פרסומים אחרונים</h2> -->
-  <!-- Section description -->
-  <!-- <p class="dark-grey-text w-responsive mx-auto mb-5">Duis aute irure dolor in reprehenderit in voluptate velit
-    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa
-    qui officia deserunt mollit anim id est laborum.</p> -->
+<br>
+<section>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
 
-  <!-- Grid row -->
-  <div class="row">
-
-    <!-- Grid column -->
-    <div class="col-lg-4 col-md-12 mb-lg-0 mb-4">
-
+  <div class="row" dir="rtl">
+    <div class="col-lg-4 col-md-6 mb-md-0 mb-4" *ngFor="let post of posts">
       <!-- Featured image -->
       <div class="view overlay rounded z-depth-2 mb-4">
-        <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/81.jpg" alt="Sample image">
+        <img class="img-fluid" [src]="post.postImg" alt="Sample image">
         <a>
           <div class="mask rgba-white-slight"></div>
         </a>
       </div>
 
-      <!-- Category -->
-      <a href="#!" class="pink-text">
+      <!-- Category
+      <a class="pink-text">
         <h6 class="font-weight-bold mb-3"><i class="fas fa-map pr-2"></i>Adventure</h6>
-      </a>
+      </a> -->
       <!-- Post title -->
-      <h4 class="font-weight-bold mb-3"><strong>Title of the news</strong></h4>
+      <h4 class="font-weight-bold mb-3" style="text-align: -webkit-auto;"><strong>{{post.title}}</strong></h4>
       <!-- Post data -->
-      <p>by <a class="font-weight-bold">Billy Forester</a>, 15/07/2018</p>
+      <!-- <p>by <a class="font-weight-bold">Billy Forester</a>, 15/07/2018</p> -->
       <!-- Excerpt -->
-      <p class="dark-grey-text">Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit
-        quo minus id quod maxime placeat facere possimus voluptas.</p>
+      <p class="dark-grey-text" style="display:block; text-overflow: ellipsis;width: 200px;overflow: hidden; white-space: nowrap;">{{post.content}}</p>
       <!-- Read more button -->
-      <a class="btn btn-pink btn-rounded btn-md">..קרא עוד</a>
+      <a class="btn btn-primary btn-rounded btn-md" [routerLink]="['/viewContent', post.id]">מידע נוסף</a>
 
+        <!-- Grid column -->
     </div>
-    <!-- Grid column -->
-
-    <!-- Grid column -->
-    <div class="col-lg-4 col-md-6 mb-md-0 mb-4">
-
-      <!-- Featured image -->
-      <div class="view overlay rounded z-depth-2 mb-4">
-        <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" alt="Sample image">
-        <a>
-          <div class="mask rgba-white-slight"></div>
-        </a>
-      </div>
-
-      <!-- Category -->
-      <a href="#!" class="deep-orange-text">
-        <h6 class="font-weight-bold mb-3"><i class="fas fa-graduation-cap pr-2"></i>Education</h6>
-      </a>
-      <!-- Post title -->
-      <h4 class="font-weight-bold mb-3"><strong>Title of the news</strong></h4>
-      <!-- Post data -->
-      <p>by <a class="font-weight-bold">Billy Forester</a>, 13/07/2018</p>
-      <!-- Excerpt -->
-      <p class="dark-grey-text">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
-        voluptatum deleniti atque corrupti quos dolores.</p>
-      <!-- Read more button -->
-      <a class="btn btn-deep-orange btn-rounded btn-md">Read more</a>
-
-    </div>
-    <!-- Grid column -->
-
-    <!-- Grid column -->
-    <div class="col-lg-4 col-md-6 mb-0">
-
-      <!-- Featured image -->
-      <div class="view overlay rounded z-depth-2 mb-4">
-        <img class="img-fluid" src="https://mdbootstrap.com/img/Photos/Others/images/13.jpg" alt="Sample image">
-        <a>
-          <div class="mask rgba-white-slight"></div>
-        </a>
-      </div>
-
-      <!-- Category -->
-      <a href="#!" class="blue-text">
-        <h6 class="font-weight-bold mb-3"><i class="fas fa-fire pr-2"></i>Culture</h6>
-      </a>
-      <!-- Post title -->
-      <h4 class="font-weight-bold mb-3"><strong>Title of the news</strong></h4>
-      <!-- Post data -->
-      <p>by <a class="font-weight-bold">Billy Forester</a>, 11/07/2018</p>
-      <!-- Excerpt -->
-      <p class="dark-grey-text">Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed
-        quia consequuntur magni dolores eos qui ratione.</p>
-      <!-- Read more button -->
-      <a class="btn btn-info btn-rounded btn-md">Read more</a>
-
-    </div>
-    <!-- Grid column -->
-
   </div>
-  <!-- Grid row -->
-
 </section>
-<!-- Section: Blog v.2 -->
+
 <br> <br> <br>
-
-
 
 
 

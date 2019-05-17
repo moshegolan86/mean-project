@@ -9,6 +9,13 @@ import { profileComponent } from './auth/profile/profile.component';
 import { contactComponent } from './views/contact/contact.component';
 import { adminComponent } from './auth/admin/admin.component';
 import { studentIdComponent } from './views/studentId/studentId.component';
+import { viewContentComponent } from './views/viewContent/viewContent.component';
+import { aboutComponent } from './views/about/about.component';
+import { tutorsComponent } from './views/tutors/tutors.component';
+import { infoComponent } from './views/info/info.component';
+import { reservesComponent } from './views/reserves/reserves.component';
+import { scholarshipComponent } from './views/scholarship/scholarship.component';
+import { examsBankComponent } from './views/examsBank/examsBank.component';
 
 const routes: Routes = [
   { path: '', component: homeComponent},
@@ -17,7 +24,14 @@ const routes: Routes = [
   { path: 'userprofile', component: profileComponent, canActivate: [AuthGuard], data: {roles: ['user']}},
   { path: 'contactUs', component: contactComponent},
   { path: 'admin', component: adminComponent },
-  { path: 'studentIdRequest', component: studentIdComponent, canActivate: [AuthGuard], data: {roles: ['user']} }
+  { path: 'studentIdRequest', component: studentIdComponent, canActivate: [AuthGuard], data: {roles: ['user']} },
+  { path: 'about', component: aboutComponent},
+  { path: 'viewContent/:postId', component: viewContentComponent},
+  { path: 'tutors', component: tutorsComponent},
+  { path: 'info' , component: infoComponent},
+  { path: 'reserves', component: reservesComponent},
+  { path: 'scholarship', component: scholarshipComponent, canActivate: [AuthGuard], data: {roles: ['user']}},
+  { path: 'examsBank', component: examsBankComponent, canActivate: [AuthGuard], data: {roles: ['user']}}
 ];
 
 @NgModule({

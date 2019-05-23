@@ -1,306 +1,207 @@
-<div class="wrapper-editor">
-
-    <div class="block my-4">
-      <div class="d-flex justify-content-center">
-        <p class="h5 text-primary createShowP">0 row selected</p>
-      </div>
-    </div>
-
-    <div class="row d-flex justify-content-center modalWrapper">
-      <div class="modal fade addNewInputs" id="modalAdd1" tabindex="-1" role="dialog" aria-labelledby="modalAdd"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header text-center">
-              <h4 class="modal-title w-100 font-weight-bold text-primary ml-5">Add new form</h4>
-              <button type="button" class="close text-primary" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body mx-3">
-              <div class="md-form mb-5">
-                <input type="text" id="inputName1" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="inputName1">Name</label>
-              </div>
-
-              <div class="md-form mb-5">
-                <input type="text" id="inputPosition1" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="inputPosition1">Position</label>
-              </div>
-
-              <div class="md-form mb-5">
-                <input type="text" id="inputOfficeInput1" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="inputOfficeInput1">Office</label>
-              </div>
-
-              <div class="md-form mb-5">
-                <input type="text" id="inputAge1" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="inputAge1">Age</label>
-              </div>
-
-              <div class="md-form mb-5">
-                <input type="date" id="inputDate1" class="form-control" placeholder="Select Date">
-                <label data-error="wrong" data-success="right" for="inputDate1"></label>
-              </div>
-
-              <div class="md-form mb-5">
-                <input type="text" id="inputSalary1" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="inputSalary1">Salary</label>
-              </div>
-              <div class="md-form mb-5">
-                <input type="text" id="inputSalary1example" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="inputSalary1example">Example</label>
-              </div>
-            </div>
-            <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
-              <button class="btn btn-outline-primary btn-block buttonAdd" data-dismiss="modal">Add form
-                <i class="fas fa-paper-plane-o ml-1"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="text-center">
-        <a href="" class="btn btn-info btn-rounded btn-sm" data-toggle="modal" data-target="#modalAdd1">Add<i
-            class="fas fa-plus-square ml-1"></i></a>
-      </div>
-
-      <div class="modal fade modalEditClass" id="modalEdit1" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header text-center">
-              <h4 class="modal-title w-100 font-weight-bold text-secondary ml-5">Edit form</h4>
-              <button type="button" class="close text-secondary" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body mx-3">
-              <div class="md-form mb-5">
-                <input type="text" id="formNameEdit1" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="formNameEdit1">Name</label>
-              </div>
-
-              <div class="md-form mb-5">
-                <input type="text" id="formPositionEdit1" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="formPositionEdit1">Position</label>
-              </div>
-
-              <div class="md-form mb-5">
-                <input type="text" id="formOfficeEdit1" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="formOfficeEdit1">Office</label>
-              </div>
-
-              <div class="md-form mb-5">
-                <input type="text" id="formAgeEdit1" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="formAgeEdit1">Age</label>
-              </div>
-
-              <div class="md-form mb-5">
-                <input type="text" id="formDateEdit1" class="form-control datepicker">
-                <label data-error="wrong" data-success="right" for="formDateEdit1">Date</label>
-              </div>
-
-              <div class="md-form mb-5">
-                <input type="text" id="formSalaryEdit1" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="formSalaryEdit1">Salary</label>
-              </div>
-              <div class="md-form mb-5">
-                <input type="text" id="formSalaryEdit1ex" class="form-control validate">
-                <label data-error="wrong" data-success="right" for="formSalaryEdit1ex">Example</label>
-              </div>
+<div class="container">
+  <img src="http://horim04.co.il/wp-content/uploads/%D7%9E%D7%95%D7%A8%D7%94-%D7%9C%D7%9E%D7%AA%D7%99%D7%9E%D7%98%D7%99%D7%A7%D7%94-960x540.png">
+  <h3 class ="text-monospace white-text">מורים פרטיים</h3>
+  <table dir="rtl" class="table table-striped">
+    <thead style="text-align: -webkit-auto;">
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">שם</th>
+        <th scope="col">קורסים רלוונטיים</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody style="text-align: -webkit-auto;" *ngFor="let tutor of this.tutors">
+      <tr>
+        <th scope="row" style="max-width: 50px;"><img *ngIf="!tutor.tutorImg; else tutorImage" style="position: inherit; width: 80px; height: 80px;" [src] = "this.url"></th>
+        <ng-template #tutorImage>
+          <th scope="row" style="max-width: 50px;"><img style="position: inherit; width: 80px; height: 80px;" [src] = "this.tutor.tutorImg"></th>
+        </ng-template>
+        <td style="max-width: 70px;"><h6>{{tutor?.name}}</h6><small>רקע אקדמי:</small><br><small>{{tutor?.academicBackground}}</small></td>
+        <td style="max-width: 160px;">{{tutor?.description}}</td>
+        <td style="text-align: left;">
+          <a class="btn btn-primary btn-rounded btn-md" data-toggle="modal" (click)="openModal(content,tutor)">פנה אל המורה</a>
+          <br><small>תעריף לשעה (60 דקות) :</small><br><small>{{tutor?.price}}</small>
+          <br><small>תחום לימודים:</small><br><small>{{tutor?.fieldOfStudy}}</small>
+        </td>
+        <td scope="col" *ngIf="this.authService.getIsAdmin()" style="max-width: 20px; text-align: left" type="button" data-toggle="modal" (click)="openEditModal(editContent,tutor)"><i class="fas fa-edit fa-2x" style="color: forestgreen"></i></td>
+        <td scope="col" *ngIf="this.authService.getIsAdmin()" style="max-width: 20px; text-align: right" type="button" (click)="onDelete(tutor.id)"><i class="fas fa-trash-alt fa-2x" style="color: red"></i></td>
+      </tr>
+    </tbody>
+  </table>
+  <span class="table-add float-right mb-3 mr-2" type="button" *ngIf="this.authService.getIsAdmin()" (click)="openAddModal(addContent)"><a class="text-success" style="position:absolute ; right: 5%; bottom: 11%; color: forestgreen;"><i
+    class="fas fa-plus fa-3x" aria-hidden="true"></i></a></span>
+</div>
 
 
-            </div>
-            <div class="modal-footer d-flex justify-content-center editInsideWrapper">
-              <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal">Edit
-                form
-                <i class="fas fa-paper-plane-o ml-1"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="text-center buttonEditWrapper">
-        <button class="btn btn-info btn-rounded btn-sm buttonEdit" data-toggle="modal" data-target="#modalEdit1"
-          disabled>Edit<i class="fas fa-pencil-square-o ml-1"></i></button>
-      </div>
-
-      <div class="modal fade" id="modalDelete1" tabindex="-1" role="dialog" aria-labelledby="modalDelete1"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header text-center">
-              <h4 class="modal-title w-100 font-weight-bold ml-5 text-danger">Delete</h4>
-              <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body mx-3">
-              <p class="text-center h4">Are you sure to delete selected row?</p>
-
-            </div>
-            <div class="modal-footer d-flex justify-content-center deleteButtonsWrapper">
-              <button type="button" class="btn btn-danger btnYesClass" id="btnYes1" data-dismiss="modal">Yes</button>
-              <button type="button" class="btn btn-primary btnNoClass" id="btnNo1" data-dismiss="modal">No</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="text-center">
-        <button class="btn btn-danger btn-sm btn-rounded buttonDelete" data-toggle="modal" disabled data-target="#modalDelete"
-          disabled>Delete<i class="fas fa-times ml-1"></i></button>
-      </div>
-    </div>
-
-    <table id="dt-more-columns" class="table table-striped table-bordered" cellspacing="0" width="100%">
-      <thead>
-        <tr>
-          <th class="th-sm">Name
-
-          </th>
-          <th class="th-sm">Position
-
-          </th>
-          <th class="th-sm">Office
-
-          </th>
-          <th class="th-sm">Age
-
-          </th>
-          <th class="th-sm">Start date
-
-          </th>
-          <th class="th-sm">Salary
-
-          </th>
-          <th class="th-sm">Example
-
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Tiger Nixon</td>
-          <td>System Architect</td>
-          <td>Edinburgh</td>
-          <td>61</td>
-          <td>2011/04/25</td>
-          <td>$320,800</td>
-          <td>Example</td>
-        </tr>
-        <tr>
-          <td>Garrett Winters</td>
-          <td>Accountant</td>
-          <td>Tokyo</td>
-          <td>63</td>
-          <td>2011/07/25</td>
-          <td>$170,750</td>
-          <td>Example</td>
-        </tr>
-        <tr>
-          <td>Ashton Cox</td>
-          <td>Junior Technical Author</td>
-          <td>San Francisco</td>
-          <td>66</td>
-          <td>2009/01/12</td>
-          <td>$86,000</td>
-          <td>Example</td>
-        </tr>
-        <tr>
-          <td>Cedric Kelly</td>
-          <td>Senior Javascript Developer</td>
-          <td>Edinburgh</td>
-          <td>22</td>
-          <td>2012/03/29</td>
-          <td>$433,060</td>
-          <td>Example</td>
-        </tr>
-        <tr>
-          <td>Airi Satou</td>
-          <td>Accountant</td>
-          <td>Tokyo</td>
-          <td>33</td>
-          <td>2008/11/28</td>
-          <td>$162,700</td>
-          <td>Example</td>
-        </tr>
-        <tr>
-          <td>Brielle Williamson</td>
-          <td>Integration Specialist</td>
-          <td>New York</td>
-          <td>61</td>
-          <td>2012/12/02</td>
-          <td>$372,000</td>
-          <td>Example</td>
-        </tr>
-        <tr>
-          <td>Herrod Chandler</td>
-          <td>Sales Assistant</td>
-          <td>San Francisco</td>
-          <td>59</td>
-          <td>2012/08/06</td>
-          <td>$137,500</td>
-          <td>Example</td>
-        </tr>
-        <tr>
-          <td>Rhona Davidson</td>
-          <td>Integration Specialist</td>
-          <td>Tokyo</td>
-          <td>55</td>
-          <td>2010/10/14</td>
-          <td>$327,900</td>
-          <td>Example</td>
-        </tr>
-        <tr>
-          <td>Colleen Hurst</td>
-          <td>Javascript Developer</td>
-          <td>San Francisco</td>
-          <td>39</td>
-          <td>2009/09/15</td>
-          <td>$205,500</td>
-          <td>Example</td>
-        </tr>
-        <tr>
-          <td>Sonya Frost</td>
-          <td>Software Engineer</td>
-          <td>Edinburgh</td>
-          <td>23</td>
-          <td>2008/12/13</td>
-          <td>$103,600</td>
-          <td>Example</td>
-        </tr>
-        <tr>
-          <td>Jena Gaines</td>
-          <td>Office Manager</td>
-          <td>London</td>
-          <td>30</td>
-          <td>2008/12/19</td>
-          <td>$90,560</td>
-          <td>Example</td>
-        </tr>
-
-      </tbody>
-      <tfoot>
-        <tr>
-          <th>Name
-          </th>
-          <th>Position
-          </th>
-          <th>Office
-          </th>
-          <th>Age
-          </th>
-          <th>Start date
-          </th>
-          <th>Salary
-          </th>
-          <th>Example
-          </th>
-        </tr>
-      </tfoot>
-    </table>
+<!-- show tutor details -->
+<ng-template dir="rtl" #content let-modal>
+  <div class="modal-header">
+    <h4 style="text-align: center; color: forestgreen">פרטי המורה</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
   </div>
-  <br><br><br>
+  <div class="modal-body" style="color: #4c4c4c; text-align: right;">
+      שם: {{this.modalContent.name}}
+    <br>
+    מייל: {{this.modalContent.email}}
+    <br>
+    טלפון: {{this.modalContent.phoneNumber}}
+  </div>
+</ng-template>
+
+
+<!-- edit tutor -->
+<ng-template dir="rtl" #editContent let-modal style="height: 550px; overflow-y: initial;">
+  <form #editForm="ngForm">
+    <div class="modal-header">
+      <h4 style="text-align: center; color: forestgreen">ערוך פרטים</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" style="color: #4c4c4c; text-align: right; max-height: 550px; overflow-y: auto;">
+      <div class="md-form mb-4" dir="rtl">
+          <small for="name">שם מלא *</small>
+          <input type="text" name="name" id="fullName" ngModel #fullName="ngModel" [ngModel]= "this.modalContent.name" class="form-control validate" required pattern=".{2,23}$">
+          <mat-error *ngIf="(fullName.invalid) && (fullName.touched)">name required</mat-error>
+      </div>
+      <div class="md-form mb-4" dir="rtl">
+          <small for="email">אימייל *</small>
+          <input type="email" name="email" id="editEmail" ngModel #editEmail="ngModel" [ngModel]= "this.modalContent.email" class="form-control validate" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+          <mat-error *ngIf="(editEmail.invalid) && (editEmail.touched)">email required</mat-error>
+      </div>
+      <div class="md-form mb-4" dir="rtl">
+          <small for="phoneNumber">טלפון</small>
+          <input type="text" name="phoneNumber" id="phoneEdit" ngModel #phoneEdit="ngModel" [ngModel]= "this.modalContent.phoneNumber" class="form-control validate">
+          <!-- <mat-error *ngIf="(phoneEdit.invalid) && (phoneEdit.touched)">phone required</mat-error> -->
+      </div>
+      <div class="md-form mb-4" dir="rtl">
+        <select class="mdb-select md-form" style="width: 100%;" [(ngModel)]="this.modalContent.academicBackground" name="abOptions">
+            <option *ngFor="let opt of this.academicBackgroundOptions"
+                  [value]="opt" [selected]="opt === this.modalContent.academicBackground">
+                {{ opt }}
+            </option>
+        </select>
+      </div>
+      <div class="md-form mb-4" dir="rtl">
+        <select class="mdb-select md-form" style="width: 100%;" [(ngModel)]="this.modalContent.fieldOfStudy" name="fosOptions" id="fosOptions">
+            <option *ngFor="let opt of this.fieldOfStudyOptions"
+                  [value]="opt" [selected]="opt === this.modalContent.fieldOfStudy">
+                {{ opt }}
+            </option>
+        </select>
+      </div>
+      <div class="md-form mb-4" dir="rtl">
+          <small for="description">קורסים רלוונטיים</small>
+          <input type="text" name="description" id="description" ngModel #editDescription="ngModel" [ngModel]= "this.modalContent.description" class="form-control validate">
+          <!-- <mat-error *ngIf="(editDescription.invalid) && (editDescription.touched)">relevant courses required</mat-error> -->
+      </div>
+
+      <div class="md-form mb-4" dir="rtl">
+          <small for="priceEdit">תעריף לשעה (60 דקות)</small>
+          <input type="text" name="price" id="price" ngModel #priceEdit="ngModel" [ngModel]= "this.modalContent.price" class="form-control validate">
+          <!-- <mat-error *ngIf="(priceEdit.invalid) && (priceEdit.touched)">rate for an hour required</mat-error> -->
+      </div>
+      <div class="md-form mb-4" dir="rtl">
+          <img [src]="this.modalContent?.tutorImg" *ngIf="imgUploaded" style="height: 100px; width: auto; position: sticky;"> <br/>
+          <div class="file-field" ng-app="testApp" ng-controller="testController">
+          <div class="d-flex justify-content-center">
+            <div class="btn btn-mdb-color btn-rounded float-left">
+              <span>Add Photo</span>
+              <input type="file" accept="image/*" name="tutorImg" ngModel #fileInput="ngModel" (change)="onImgUpload($event)">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br>
+      <div class="md-form mb-4" dir="rtl">
+        <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal" (click)= "onSave(editForm)"> שמור<i class="far fa-paper-plane pr-2"></i></button>
+      </div>
+
+    </div>
+  </form>
+</ng-template>
+
+
+<!-- add tutor -->
+<ng-template dir="rtl" #addContent let-modal style="height: 550px; overflow-y: initial;">
+  <form #addForm="ngForm">
+    <div class="modal-header">
+      <h4 style="text-align: center; color: forestgreen">הוספת מורה</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" style="color: #4c4c4c; text-align: right; max-height: 550px; overflow-y: auto;">
+      <div class="md-form mb-4" dir="rtl">
+          <small for="name">שם מלא *</small>
+          <input type="text" name="name" id="name" ngModel #fullName="ngModel" class="form-control validate" required pattern=".{2,23}$">
+          <mat-error *ngIf="(fullName.invalid) && (fullName.touched)">name required</mat-error>
+      </div>
+      <div class="md-form mb-4" dir="rtl">
+          <small for="email">אימייל *</small>
+          <input type="email" name="email" id="email" ngModel #editEmail="ngModel" class="form-control validate" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+          <mat-error *ngIf="(editEmail.invalid) && (editEmail.touched)">email required</mat-error>
+      </div>
+      <div class="md-form mb-4" dir="rtl">
+          <small for="phoneNumber">טלפון</small>
+          <input type="text" name="phoneNumber" id="phoneNumber" ngModel class="form-control validate">
+          <!-- <mat-error *ngIf="(phoneEdit.invalid) && (phoneEdit.touched)">phone required</mat-error> -->
+      </div>
+      <div class="md-form mb-4" dir="rtl">
+        <select class="mdb-select md-form" style="width: 100%;" name="abOptions" id="addAcademicBackground">
+            <option value="" disabled selected>רקע אקדמי</option>
+            <option value="1">סטודנט</option>
+            <option value="2">תואר ראשון</option>
+            <option value="3">תואר שני</option>
+            <option value="4">דוקטורט</option>
+            <option value="5">אחר</option>
+        </select>
+      </div>
+      <div class="md-form mb-4" dir="rtl">
+        <select class="mdb-select md-form" style="width: 100%;" name="fosOptions" id="fosOptions">
+            <option value="" disabled selected>תחום לימודים</option>
+            <option value="1">הנדסת תוכנה</option>
+            <option value="2">הנדסת מכונות</option>
+            <option value="3">הנדסת חשמל ואלקטרוניקה</option>
+            <option value="4">הנדסת בניין</option>
+            <option value="5">הנדסה כימית</option>
+        </select>
+      </div>
+      <div class="md-form mb-4" dir="rtl">
+          <small for="description">קורסים רלוונטיים</small>
+          <input type="text" name="description" id="description" ngModel #editDescription="ngModel" class="form-control validate">
+          <!-- <mat-error *ngIf="(editDescription.invalid) && (editDescription.touched)">relevant courses required</mat-error> -->
+      </div>
+
+      <div class="md-form mb-4" dir="rtl">
+          <small for="priceEdit">תעריף לשעה (60 דקות)</small>
+          <input type="text" name="price" id="price" ngModel #priceEdit="ngModel" class="form-control validate">
+          <!-- <mat-error *ngIf="(priceEdit.invalid) && (priceEdit.touched)">rate for an hour required</mat-error> -->
+      </div>
+      <div class="md-form mb-4" dir="rtl">
+          <img [src]="this.tutorUrl" *ngIf="imgUploaded" style="height: 100px; width: auto; position: sticky;"> <br/>
+          <div class="file-field" ng-app="testApp" ng-controller="testController">
+          <div class="d-flex justify-content-center">
+            <div class="btn btn-mdb-color btn-rounded float-left">
+              <span>Add Photo</span>
+              <input type="file" accept="image/*" name="tutorImg" ngModel #fileInput="ngModel" (change)="onImgUpload($event)">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br>
+      <div class="md-form mb-4" dir="rtl">
+        <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal" (click)= "onAdd(addForm)"> שמור<i class="far fa-paper-plane pr-2"></i></button>
+      </div>
+
+    </div>
+  </form>
+</ng-template>
+
+
+
+

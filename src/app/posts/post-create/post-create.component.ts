@@ -16,6 +16,7 @@ export class PostCreateComponent implements OnInit {
   post: Post;
   user: User;
   isLoading = false;
+  url = "";
   private mode = "create";
   private postId: string;
 
@@ -33,9 +34,11 @@ export class PostCreateComponent implements OnInit {
         this.postsService.getPost(this.postId).subscribe(postData => {
           this.isLoading = false;
           this.post = {id: postData._id, title: postData.title, content: postData.content, postImg: postData.postImg};
+          this.url = this.post.postImg;
         });
       } else {
         this.mode = "create";
+        this.url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSd54Wultzcerep2O8X0hDz-cU31KpnQu4lyIL-_FdqyEJxazcF";
         this.postId = null;
       }
     });
@@ -47,12 +50,13 @@ export class PostCreateComponent implements OnInit {
     }
     this.isLoading = true;
     if (this.mode === "create") {
-      this.postsService.addPost(form.value.title, form.value.content);
+      this.postsService.addPost(form.value.title, form.value.content, form.value.postImg);
     } else {
       this.postsService.updatePost(
         this.postId,
         form.value.title,
-        form.value.content
+        form.value.content,
+        form.value.postImg
       );
     }
     form.resetForm();
@@ -66,5 +70,16 @@ export class PostCreateComponent implements OnInit {
 
     }
     form.resetForm();
+  }
+
+  onImgUpload(event) {
+    if (event.target.files && event.target.files[0]) {
+      var reader: any = new FileReader();
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        this.url = event.target.result;
+      }
+    }
   }
 }

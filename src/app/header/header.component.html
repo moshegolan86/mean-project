@@ -21,9 +21,9 @@
         <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
           תפריט מנהל<span class="caret"></span></a>
         <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-          <a class="dropdown-item waves-light" mdbWavesEffect href="#">Action</a>
-          <a class="dropdown-item waves-light" mdbWavesEffect href="#">Another action</a>
-          <a class="dropdown-item waves-light" mdbWavesEffect href="#">Something else here</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect [routerLink]="['/editpost', '']">הוסף פוסט</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect href="#">הוסף הגרלה</a>
+          <!-- <a class="dropdown-item waves-light" mdbWavesEffect href="#">Something else here</a> -->
           <div class="divider dropdown-divider"></div>
           <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/admin">הרשמת נציג אגודה</a>
         </div>
@@ -33,15 +33,19 @@
     <!-- Links -->
 
     <ul class="navbar-nav ml-auto nav-flex-icons">
-      <li class="nav-item">
-        <a class="nav-link"><i class="fas fa-comments"></i></a>
+      <li class="nav-item avatar dropdown" dropdown>
+          <a class="nav-link waves-light" dropdownToggle type="button" mdbWavesEffect><i class="fas fa-bell"></i></a>
+          <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown-primary" role="menu">
+              <a class="dropdown-item waves-light" routerLink="/login">התחבר</a>
+              <a class="dropdown-item waves-light" routerLink="/register">הרשם</a>
+          </div>
       </li>
       <aa class="navbar-text" *ngIf="isAuthenticated">
         {{ authService.getCurrentUser().firstName }} {{ authService.getCurrentUser().lastName }}
       </aa>
       <li class="nav-item avatar dropdown" dropdown>
         <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
-          <img src="https://image.flaticon.com/icons/png/512/97/97895.png" *ngIf="!this.hasImg" alt="avatar" class="img-fluid rounded-circle z-depth-0">
+          <img src="http://www.igdir.edu.tr/Addons/Resmi/Images/User-Profile/profil-19.png" *ngIf="!this.hasImg" alt="avatar" class="img-fluid rounded-circle z-depth-0">
           <img [src]="this.authService.getCurrentUser()?.img" alt="avatar" *ngIf="this.hasImg" class="img-fluid rounded-circle z-depth-0"></a>
         <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
 

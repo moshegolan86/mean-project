@@ -1,35 +1,25 @@
 <div class="container">
     <img src="https://mahfouzadedimeji.com/wp-content/uploads/2017/07/scholarship.jpg">
+    <h3 class ="text-monospace white-text">ריכזנו עבורכם את המלגות הכי שוות כרגע</h3>
     <table dir="rtl" class="table table-striped">
-      <thead>
+      <thead style="text-align: -webkit-auto;">
         <tr>
-          <th scope="col">#</th>
+          <th scope="col"></th>
           <th scope="col">שם המלגה</th>
           <th scope="col">תיאור</th>
           <th scope="col"></th>
         </tr>
       </thead>
-      <tbody *ngFor="let scholar of this.scholars">
+      <tbody style="text-align: -webkit-auto;" *ngFor="let scholar of this.scholars; let i = index">
         <tr>
-          <th scope="row"></th>
-          <td>{{scholar?.title}}</td>
-          <td>{{scholar?.content}}</td>
-          <td>
-            <a class="btn btn-primary btn-rounded btn-md">הגשת מועמדות</a>
+          <th scope="row" style="max-width: 50px;"><img *ngIf="!scholar?.scholarImg" style="position: inherit; width: 80px; height: 80px;" [src] = "this.url"></th>
+          <td style="max-width: 50px;"><h6>{{scholar?.title}}</h6><small>תאריך פרסום:</small><br><small>{{scholar?.publishedDate| date: 'dd/MM/yyyy'}}</small></td>
+          <td style="max-width: 160px;">{{scholar?.content}}</td>
+          <td style="text-align: left;">
+            <a class="btn btn-primary btn-rounded btn-md" [attr.href] = "this.scholar?.scholarFile">הגשת מועמדות</a>
+            <br><small>תאריך אחרון להגשה:</small><br><small>{{scholar?.finalDate | date: 'dd/MM/yyyy'}}</small>
           </td>
         </tr>
-        <!-- <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr> -->
       </tbody>
     </table>
 

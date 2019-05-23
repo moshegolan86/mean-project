@@ -24,7 +24,7 @@ router.post("", (req, res, next) => {
 });
 
 router.put("/:id", (req, res, next) => {
-  const post = new Scholarship({
+  const scholar = new Scholarship({
     _id: req.body.id,
     title: req.body.title,
     content: req.body.content,
@@ -33,7 +33,7 @@ router.put("/:id", (req, res, next) => {
     publishedDate: req.body.publishedDate,
     scholarFile: req.body.scholarFile
   });
-  Scholarship.updateOne({ _id: req.params.id }, post).then(result => {
+  Scholarship.updateOne({ _id: req.params.id }, scholar).then(result => {
     console.log(result);
     res.status(200).json({ message: "Update successful!" });
   });
@@ -42,7 +42,7 @@ router.put("/:id", (req, res, next) => {
 router.get("", (req, res, next) => {
   Scholarship.find().then(documents => {
     res.status(200).json({
-      message: "Posts fetched successfully!",
+      message: "Scholarships fetched successfully!",
       scholarships: documents
     });
   });

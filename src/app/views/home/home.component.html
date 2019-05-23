@@ -50,7 +50,7 @@
       <p class="dark-grey-text" style="display:block; text-overflow: ellipsis;width: 200px;overflow: hidden; white-space: nowrap;">{{post.content}}</p>
       <!-- Read more button -->
       <a class="btn btn-primary btn-rounded btn-md" [routerLink]="['/viewContent', post.id]">מידע נוסף</a>
-
+      <a class="btn btn-primary btn-rounded btn-md" *ngIf="this.authService.getIsAdmin()" style="background-color:grey; color: #b30000;" [routerLink]="['/editpost', post.id]">ערוך</a>
         <!-- Grid column -->
     </div>
   </div>

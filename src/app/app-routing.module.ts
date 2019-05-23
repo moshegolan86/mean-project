@@ -16,6 +16,7 @@ import { infoComponent } from './views/info/info.component';
 import { reservesComponent } from './views/reserves/reserves.component';
 import { scholarshipComponent } from './views/scholarship/scholarship.component';
 import { examsBankComponent } from './views/examsBank/examsBank.component';
+import { AuthService } from './auth/auth.service';
 
 const routes: Routes = [
   { path: '', component: homeComponent},
@@ -31,7 +32,8 @@ const routes: Routes = [
   { path: 'info' , component: infoComponent},
   { path: 'reserves', component: reservesComponent},
   { path: 'scholarship', component: scholarshipComponent, canActivate: [AuthGuard], data: {roles: ['user']}},
-  { path: 'examsBank', component: examsBankComponent, canActivate: [AuthGuard], data: {roles: ['user']}}
+  { path: 'examsBank', component: examsBankComponent, canActivate: [AuthGuard], data: {roles: ['user']}},
+  { path: 'editpost/:postId', component: PostCreateComponent,  canActivate: [AuthGuard], data: {roles: ['user']}}
 ];
 
 @NgModule({

@@ -61,7 +61,7 @@ export class scholarshipsService {
         scholar.id = id;
         this.scholarships.push(scholar);
         this.scholarsUpdated.next([...this.scholarships]);
-        this.router.navigate(["/"]);
+        //this.router.navigate(["/"]);
       });
   }
 
@@ -75,7 +75,7 @@ export class scholarshipsService {
         updatedScholars[oldScholarIndex] = scholar;
         this.scholarships = updatedScholars;
         this.scholarsUpdated.next([...this.scholarships]);
-        this.router.navigate(["/"]);
+        //this.router.navigate(["/"]);
       });
   }
 

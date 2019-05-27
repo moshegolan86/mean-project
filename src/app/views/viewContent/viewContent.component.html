@@ -6,7 +6,7 @@
       <div class="card-body" style="text-align: -webkit-auto;">
         <h5 class="card-title">{{post?.title}}</h5>
         <p class="card-text">{{post?.content}}</p>
-        <a class="btn btn-primary btn-rounded btn-md">לרכישת כרטיסים</a>
+        <a class="btn btn-primary btn-rounded btn-md" (click)="openPaymentModal(Content)">לרכישת כרטיסים</a>
         <br>
         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
       </div>
@@ -15,5 +15,61 @@
 
 </body>
 
+<ng-template dir="rtl" #Content let-modal style="height: 550px; overflow-y: initial;">
+  <form #payForm="ngForm">
+    <div class="modal-header">
+      <h4 style="text-align: center; color: forestgreen">רכישת כרטיסים</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" style="color: #4c4c4c; text-align: right; max-height: 550px; overflow-y: auto;">
+      <div class="md-form mb-4" dir="rtl">
+          <small for="name">שם מלא *</small>
+          <input type="text" name="name" id="fullName" ngModel #fullName="ngModel" [ngModel]= "this.authService.getCurrentUser()?.firstName + ' ' + this.authService.getCurrentUser()?.lastName" class="form-control validate" required pattern=".{2,23}$">
+          <mat-error *ngIf="(fullName.invalid) && (fullName.touched)">name required</mat-error>
+      </div>
+      <div class="md-form mb-4" dir="rtl">
+          <small for="email">אימייל *</small>
+          <input type="email" name="email" id="editEmail" ngModel #editEmail="ngModel" [ngModel]= "this.authService.getCurrentUser()?.email" class="form-control validate" readonly required pattern="[a-z0-9._%+-]+@ac.sce.ac.il$">
+          <mat-error *ngIf="(editEmail.invalid) && (editEmail.touched)">email required</mat-error>
+      </div>
+      <!-- <div class="md-form mb-4" dir="rtl">
+          <small for="phoneNumber">טלפון</small>
+          <input type="text" name="phoneNumber" id="phoneEdit" ngModel #phoneEdit="ngModel" [ngModel]= "this." class="form-control validate">
+          <mat-error *ngIf="(phoneEdit.invalid) && (phoneEdit.touched)">phone required</mat-error>
+      </div> -->
+      <div class="md-form mb-4" dir="rtl">
+        <select class="mdb-select md-form" id="cardType" ngModel #cardTypeInput="ngModel" name="cardType" required style="width: 40%" (change)="chooseCardType()">
+          <option value="" disabled selected>סוג כרטיס</option>
+          <option value="1">סטודנט</option>
+          <option value="2">אורח</option>
+        </select>
+        <mat-error *ngIf="cardTypeInput.invalid">בחר סוג כרטיס</mat-error>
+        <small for="cardType" *ngIf="this.showStudentPrice" style="color: green"> מחיר: {{this.studentPrice}}  ש״ח</small>
+        <small for="cardType" *ngIf="this.showGuestPrice" style="color: green"> מחיר: {{this.guestPrice}} ש״ח</small>
+      </div>
 
+      <div class="md-form mb-4" dir="rtl">
+        <select class="mdb-select md-form" id="amount" ngModel #amountInput="ngModel" name="amount" required style="width: 40%" (change)="calcTotal()">
+          <option value="" disabled selected>כמות</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <mat-error *ngIf="amountInput.invalid">בחר כמות</mat-error>
+        <br>
+        <small *ngIf="(!amountInput.invalid) && (!cardTypeInput.invalid)" style="color: green">  סה״כ לתשלום:   {{this.totalPay}}  ש״ח</small>
+      </div>
+
+      <br>
+      <div class="md-form mb-4" dir="rtl">
+        <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal" (click)= "onPayment(payForm)"><i class="fab fa-paypal fa-2x"></i> המשך לתשלום Paypal </button>
+      </div>
+
+    </div>
+  </form>
+</ng-template>
 

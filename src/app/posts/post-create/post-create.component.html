@@ -24,11 +24,11 @@
           #content="ngModel"></textarea>
         <mat-error *ngIf="content.invalid">Please enter a post content.</mat-error>
       </mat-form-field>
-      <div class="text-center" ngModel name="postImg" required #postImg = "ngModel">
+      <div class="text-center" ngModel name="postImg" required #postImg = "ngModel" ngDefaultControl>
         <img [src]="this.url" accept="image/*" class="avatar img-circle img-thumbnail" style="height: 300px;">
         <h6>Upload a different photo...</h6>
         <input type="file" (change)="onImgUpload($event)">
-        <mat-error *ngIf="postImg.invalid">Please upload a post Image.</mat-error>
+        <mat-error *ngIf="!postImg">Please upload a post Image.</mat-error>
       </div>
       <button
         class="btn btn-primary btn-rounded btn-md"

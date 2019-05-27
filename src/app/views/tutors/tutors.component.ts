@@ -66,6 +66,7 @@ export class tutorsComponent {
 
     this.tutorsService.updateTutor(this.tutorId, form.value.name, this.modalContent.fieldOfStudy, this.modalContent.academicBackground, form.value.price,
       form.value.description, this.modalContent.tutorImg, form.value.email, form.value.phoneNumber);
+    this.tutorUrl = '';
     this.modalService.dismissAll();
   }
 
@@ -81,7 +82,8 @@ export class tutorsComponent {
     var fieldOfStudy = fosOptions.options[fosOptions.selectedIndex].text;
 
     this.tutorsService.addTutor(form.value.name, fieldOfStudy, academicBackground, form.value.price,
-      form.value.description, form.value.tutorImg, form.value.email, form.value.phoneNumber);
+      form.value.description, this.tutorUrl, form.value.email, form.value.phoneNumber);
+    this.tutorUrl = '';
     this.ngOnInit();
     this.modalService.dismissAll();
 

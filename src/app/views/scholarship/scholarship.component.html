@@ -12,15 +12,153 @@
       </thead>
       <tbody style="text-align: -webkit-auto;" *ngFor="let scholar of this.scholars; let i = index">
         <tr>
-          <th scope="row" style="max-width: 50px;"><img *ngIf="!scholar?.scholarImg" style="position: inherit; width: 80px; height: 80px;" [src] = "this.url"></th>
+          <th scope="row" style="max-width: 50px;"><img *ngIf="!scholar?.scholarImg else scholarImage" style="position: inherit; width: 80px; height: 80px;" [src] = "this.url"></th>
+          <ng-template #scholarImage>
+            <th scope="row" style="max-width: 50px;"><img style="position: inherit; width: 80px; height: 80px;" [src] = "this.scholar.scholarImg"></th>
+          </ng-template>
           <td style="max-width: 50px;"><h6>{{scholar?.title}}</h6><small>תאריך פרסום:</small><br><small>{{scholar?.publishedDate| date: 'dd/MM/yyyy'}}</small></td>
           <td style="max-width: 160px;">{{scholar?.content}}</td>
           <td style="text-align: left;">
-            <a class="btn btn-primary btn-rounded btn-md" [attr.href] = "this.scholar?.scholarFile">הגשת מועמדות</a>
+            <a class="btn btn-primary btn-rounded btn-md" *ngIf= "this.scholar.scholarFile else scholarFile" [attr.href] = "this.scholar?.scholarFile">הגשת מועמדות</a>
+            <ng-template #scholarFile>
+              <a class="btn btn-primary btn-rounded btn-md">הגשת מועמדות</a>
+            </ng-template>
             <br><small>תאריך אחרון להגשה:</small><br><small>{{scholar?.finalDate | date: 'dd/MM/yyyy'}}</small>
           </td>
+          <td scope="col" *ngIf="this.authService.getIsAdmin()" style="max-width: 20px; text-align: left" type="button" data-toggle="modal" (click)="openEditModal(editContent,scholar)"><i class="fas fa-edit fa-2x" style="color: forestgreen"></i></td>
+          <td scope="col" *ngIf="this.authService.getIsAdmin()" style="max-width: 20px; text-align: right" type="button" (click)="onDelete(scholar.id)"><i class="fas fa-trash-alt fa-2x" style="color: red"></i></td>
         </tr>
       </tbody>
     </table>
-
+    <span class="table-add float-right mb-3 mr-2" type="button" *ngIf="this.authService.getIsAdmin()" (click)="openAddModal(addContent)"><a class="text-success" style="position:absolute ; right: 5%; bottom: 11%; color: forestgreen;"><i
+      class="fas fa-plus fa-3x" aria-hidden="true"></i></a></span>
 </div>
+
+
+<!-- edit tutor -->
+<ng-template dir="rtl" #editContent let-modal style="height: 550px; overflow-y: initial;">
+  <form #editForm="ngForm">
+    <div class="modal-header">
+      <h4 style="text-align: center; color: forestgreen">ערוך פרטים</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" style="color: #4c4c4c; text-align: right; max-height: 550px; overflow-y: auto;">
+      <div class="md-form mb-4" dir="rtl">
+          <small for="title">כותרת *</small>
+          <input type="text" name="title" id="title" ngModel #title="ngModel" [ngModel]= "this.modalContent.title" class="form-control validate" required pattern=".{2,100}$">
+          <mat-error *ngIf="(title.invalid) && (title.touched)">title required</mat-error>
+      </div>
+      <div class="md-form mb-4" dir="rtl">
+          <small for="content">תיאור *</small>
+          <input type="text" rows="6" name="content" id="contentInput" ngModel #content="ngModel" [ngModel]= "this.modalContent.content" class="form-control validate">
+          <mat-error *ngIf="(content.invalid) && (content.touched)">content required</mat-error>
+      </div>
+      <div class="md-form mb-4" dir="rtl">
+        <mat-form-field>
+          <input matInput [matDatepicker]="publishedDate" name="publishedDate" ngModel [ngModel] = "this.modalContent.publishedDate" placeholder="תאריך פרסום">
+          <mat-datepicker-toggle matSuffix [for]="publishedDate"></mat-datepicker-toggle>
+          <mat-datepicker #publishedDate></mat-datepicker>
+        </mat-form-field>
+
+      </div>
+      <div class="md-form mb-4" dir="rtl">
+        <mat-form-field>
+          <input matInput [matDatepicker]="finalDate" name="finalDate" ngModel [ngModel] = "this.modalContent.finalDate" placeholder="תאריך אחרון להגשה">
+          <mat-datepicker-toggle matSuffix [for]="finalDate"></mat-datepicker-toggle>
+          <mat-datepicker #finalDate></mat-datepicker>
+        </mat-form-field>
+
+      </div>
+
+      <div class="md-form mb-4" dir="rtl">
+          <small for="scholarFile">קישור למלגה</small>
+          <input type="text" name="scholarFile" id="scholarFile" ngModel #scholarFile="ngModel" [ngModel]= "this.modalContent.scholarFile" class="form-control validate">
+          <!-- <mat-error *ngIf="(priceEdit.invalid) && (priceEdit.touched)">rate for an hour required</mat-error> -->
+      </div>
+      <div class="md-form mb-4" dir="rtl">
+          <img [src]="this.modalContent?.scholarImg" *ngIf="imgUploaded" style="height: 100px; width: auto; position: sticky;"> <br/>
+          <div class="file-field" ng-app="testApp" ng-controller="testController">
+          <div class="d-flex justify-content-center">
+            <div class="btn btn-mdb-color btn-rounded float-left">
+              <span>Add Photo</span>
+              <input type="file" accept="image/*" name="scholarImg" ngModel #fileInput="ngModel" (change)="onImgUpload($event)">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br>
+      <div class="md-form mb-4" dir="rtl">
+        <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal" (click)= "onSave(editForm)"> שמור<i class="far fa-paper-plane pr-2"></i></button>
+      </div>
+
+    </div>
+  </form>
+</ng-template>
+
+
+<!-- add tutor -->
+<ng-template dir="rtl" #addContent let-modal style="height: 550px; overflow-y: initial;">
+  <form #addForm="ngForm">
+    <div class="modal-header">
+      <h4 style="text-align: center; color: forestgreen">הוספת מורה</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" style="color: #4c4c4c; text-align: right; max-height: 550px; overflow-y: auto;">
+      <div class="md-form mb-4" dir="rtl">
+          <small for="title">כותרת *</small>
+          <input type="text" name="title" id="title" ngModel #title="ngModel" class="form-control validate" required pattern=".{2,100}$">
+          <mat-error *ngIf="(title.invalid) && (title.touched)">title required</mat-error>
+      </div>
+      <div class="md-form mb-4" dir="rtl">
+          <small for="content">תיאור *</small>
+          <input type="text" rows="6" name="content" id="content" ngModel #content="ngModel" class="form-control validate">
+          <mat-error *ngIf="(content.invalid) && (content.touched)">content required</mat-error>
+      </div>
+      <div class="md-form mb-4" dir="rtl">
+        <mat-form-field>
+          <input matInput [matDatepicker]="publishedDate" name="publishedDate" ngModel placeholder="תאריך פרסום">
+          <mat-datepicker-toggle matSuffix [for]="publishedDate"></mat-datepicker-toggle>
+          <mat-datepicker #publishedDate></mat-datepicker>
+        </mat-form-field>
+
+      </div>
+      <div class="md-form mb-4" dir="rtl">
+        <mat-form-field>
+          <input matInput [matDatepicker]="finalDate" name="finalDate" ngModel placeholder="תאריך אחרון להגשה">
+          <mat-datepicker-toggle matSuffix [for]="finalDate"></mat-datepicker-toggle>
+          <mat-datepicker #finalDate></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+
+      <div class="md-form mb-4" dir="rtl">
+          <small for="scholarFile">קישור למלגה</small>
+          <input type="text" name="scholarFile" id="scholarFile" ngModel #scholarFile="ngModel" class="form-control validate">
+          <!-- <mat-error *ngIf="(priceEdit.invalid) && (priceEdit.touched)">rate for an hour required</mat-error> -->
+      </div>
+      <div class="md-form mb-4" dir="rtl">
+          <img [src]="this.scholarImg" *ngIf="imgUploaded" style="height: 100px; width: auto; position: sticky;"> <br/>
+          <div class="file-field" ng-app="testApp" ng-controller="testController">
+          <div class="d-flex justify-content-center">
+            <div class="btn btn-mdb-color btn-rounded float-left">
+              <span>Add Photo</span>
+              <input type="file" accept="image/*" name="scholarImg" ngModel #fileInput="ngModel" (change)="onImgUpload($event)">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br>
+      <div class="md-form mb-4" dir="rtl">
+        <button class="btn btn-outline-secondary btn-block editInside" data-dismiss="modal" (click)= "onAdd(addForm)"> שמור<i class="far fa-paper-plane pr-2"></i></button>
+      </div>
+
+    </div>
+  </form>
+</ng-template>
+

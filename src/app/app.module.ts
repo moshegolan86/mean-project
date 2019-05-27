@@ -7,7 +7,9 @@ import { MatInputModule,
          MatButtonModule,
          MatToolbarModule,
          MatExpansionModule,
-         MatProgressSpinnerModule
+         MatProgressSpinnerModule,
+         MatDatepickerModule,
+         MatNativeDateModule
        } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -57,6 +59,8 @@ import { scholarshipComponent } from './views/scholarship/scholarship.component'
   ],
   imports: [
     BrowserModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,

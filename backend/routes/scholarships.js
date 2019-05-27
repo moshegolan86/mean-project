@@ -5,7 +5,6 @@ const router = express.Router();
 const Scholarship = require("../models/scholarship");
 
 router.post("", (req, res, next) => {
-  console.log("hereeeeee " + req.body.title);
   const scholarship = new Scholarship({
     title: req.body.title,
     content: req.body.content,
@@ -14,7 +13,6 @@ router.post("", (req, res, next) => {
     publishedDate: req.body.publishedDate,
     scholarFile: req.body.scholarFile
   });
-  console.log("in scolarships.js" + scholarship);
   scholarship.save().then(createdScholar => {
     res.status(201).json({
       message: "scholarship added successfully",

@@ -46,13 +46,13 @@ export class tutorsService {
   }
 
   getTutor(id: string) {
-    return this.http.get<{ _id: string; name: string; fieldOfStudy: string, academicBackground: string, price: number, description: string, tutorImg: string, phoneNumber: string, email: string}>(
+    return this.http.get<{ _id: string; name: string; fieldOfStudy: string, academicBackground: string, price: number, description: string, tutorImg: string,email: string, phoneNumber: string}>(
       "http://localhost:3000/api/tutors/" + id
     );
   }
 
-  addTutor(name: string, fieldOfStudy: string, academicBackground: string, price: number, description: string, tutorImg: string, phoneNumber: string, email: string) {
-    const tutor: Tutor = { id: null, name: name, fieldOfStudy: fieldOfStudy, academicBackground: academicBackground, price: price, description: description, tutorImg: tutorImg, phoneNumber: phoneNumber, email: email};
+  addTutor(name: string, fieldOfStudy: string, academicBackground: string, price: number, description: string, tutorImg: String, email: string, phoneNumber: string) {
+    const tutor: Tutor = { id: null, name: name, fieldOfStudy: fieldOfStudy, academicBackground: academicBackground, price: price, description: description, tutorImg: tutorImg.toString(), email: email, phoneNumber: phoneNumber};
     this.http
       .post<{ message: string; tutorId: string }>(
         "http://localhost:3000/api/tutors",

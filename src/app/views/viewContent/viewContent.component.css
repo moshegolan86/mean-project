@@ -18,3 +18,8 @@ img {
 .card-title {
   direction: rtl;
 }
+
+
+#paypal-checkout-btn {
+  width: 366px;
+}

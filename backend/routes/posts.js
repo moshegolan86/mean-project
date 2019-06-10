@@ -7,7 +7,8 @@ const Post = require("../models/post");
 router.post("", (req, res, next) => {
   const post = new Post({
     title: req.body.title,
-    content: req.body.content
+    content: req.body.content,
+    postImg: req.body.postImg
   });
   post.save().then(createdPost => {
     res.status(201).json({
@@ -21,7 +22,8 @@ router.put("/:id", (req, res, next) => {
   const post = new Post({
     _id: req.body.id,
     title: req.body.title,
-    content: req.body.content
+    content: req.body.content,
+    postImg: req.body.postImg
   });
   Post.updateOne({ _id: req.params.id }, post).then(result => {
     console.log(result);

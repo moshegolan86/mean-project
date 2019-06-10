@@ -35,6 +35,8 @@ import { examsBankComponent } from './views/examsBank/examsBank.component';
 import { infoComponent } from './views/info/info.component';
 import { reservesComponent } from './views/reserves/reserves.component';
 import { scholarshipComponent } from './views/scholarship/scholarship.component';
+import { eventComponent } from './views/event/event.component';
+
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { scholarshipComponent } from './views/scholarship/scholarship.component'
     examsBankComponent,
     infoComponent,
     reservesComponent,
-    scholarshipComponent
+    scholarshipComponent,
+    eventComponent
   ],
   imports: [
     BrowserModule,

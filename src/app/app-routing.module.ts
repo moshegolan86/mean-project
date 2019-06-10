@@ -17,6 +17,7 @@ import { reservesComponent } from './views/reserves/reserves.component';
 import { scholarshipComponent } from './views/scholarship/scholarship.component';
 import { examsBankComponent } from './views/examsBank/examsBank.component';
 import { AuthService } from './auth/auth.service';
+import { eventComponent } from './views/event/event.component';
 
 const routes: Routes = [
   { path: '', component: homeComponent},
@@ -33,7 +34,8 @@ const routes: Routes = [
   { path: 'reserves', component: reservesComponent},
   { path: 'scholarship', component: scholarshipComponent, canActivate: [AuthGuard], data: {roles: ['user']}},
   { path: 'examsBank', component: examsBankComponent, canActivate: [AuthGuard], data: {roles: ['user']}},
-  { path: 'editpost/:postId', component: PostCreateComponent,  canActivate: [AuthGuard], data: {roles: ['user']}}
+  { path: 'editpost/:postId', component: PostCreateComponent,  canActivate: [AuthGuard], data: {roles: ['user']}},
+  { path: 'event/:eventId', component: eventComponent, canActivate: [AuthGuard], data: {roles: ['user']} }
 ];
 
 @NgModule({

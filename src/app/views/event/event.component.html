@@ -2,14 +2,17 @@
 <body dir="rtl">
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <div class="container" *ngIf="!this.isLoading">
-    <img *ngIf="!this.isLoading" [src]="this.post?.postImg">
-    <div class="card text-location" style="margin-bottom: 100px;">
+    <!-- <img *ngIf="!this.isLoading" [src]="this.post?.postImg"> -->
+    <div class="card text-location" style="margin-bottom: 100px; width: 60%; background-color: rgba(0,0,0,.2);">
       <div class="card-body" style="text-align: -webkit-auto;">
-        <h5 class="card-title">{{post?.title}}</h5>
-        <p class="card-text">{{post?.content}}</p>
-        <!-- <a class="btn btn-primary btn-rounded btn-md" (click)="openPaymentModal(Content)">לרכישת כרטיסים</a> -->
+        <h5 class="card-title" style="color: whitesmoke;">{{ event?.title}}</h5>
+        <p class="card-text"> מיקום:   {{ event?.place}}</p>
+        <p class="card-text"> תאריך:   {{ event?.eventDate| date: 'dd/MM/yyyy'}}</p>
+        <p class="card-text"> מחיר כרטיס סטודנט:   {{ event?.studentPrice}} ש״ח</p>
+        <p class="card-text"> מחיר כרטיס אורח:   {{ event?.guestPrice}} ש״ח</p>
+        <p class="card-text"> תיאור:   {{event?.description}}</p>
+        <a class="btn btn-primary btn-rounded btn-md" (click)="openPaymentModal(Content)">לרכישת כרטיסים</a>
         <br>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
       </div>
     </div>
   </div>
@@ -47,8 +50,8 @@
           <option value="2">אורח</option>
         </select>
         <mat-error *ngIf="cardTypeInput.invalid">בחר סוג כרטיס</mat-error>
-        <small for="cardType" *ngIf="this.showStudentPrice" style="color: green"> מחיר: {{this.studentPrice}}  ש״ח</small>
-        <small for="cardType" *ngIf="this.showGuestPrice" style="color: green"> מחיר: {{this.guestPrice}} ש״ח</small>
+        <small for="cardType" *ngIf="this.showStudentPrice" style="color: green"> מחיר: {{this.event?.studentPrice}}  ש״ח</small>
+        <small for="cardType" *ngIf="this.showGuestPrice" style="color: green"> מחיר: {{this.event?.guestPrice }} ש״ח</small>
       </div>
 
       <div class="md-form mb-4" dir="rtl">
@@ -57,8 +60,6 @@
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
         </select>
         <mat-error *ngIf="amountInput.invalid">בחר כמות</mat-error>
         <br>
@@ -67,7 +68,7 @@
 
       <!-- <br> -->
       <div class="md-form mb-4">
-        <div class="paypal" id="paypal-checkout-btn" (click)= "onPayment(payForm)"></div>
+        <div class="paypal" id="paypal-checkout-btn"></div>
       </div>
 
 

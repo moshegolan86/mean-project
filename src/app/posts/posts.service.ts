@@ -62,6 +62,7 @@ export class PostsService {
 
   updatePost(id: string, title: string, content: string, postImg: string) {
     const post: Post = { id: id, title: title, content: content, postImg: postImg };
+    console.log("in post service " + post.postImg);
     this.http
       .put("http://localhost:3000/api/posts/" + id, post)
       .subscribe(response => {

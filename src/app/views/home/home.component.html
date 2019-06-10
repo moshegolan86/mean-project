@@ -56,7 +56,19 @@
   </div>
 </section>
 
+<br> <br>
+
+<div class="card w-100 mb-3" *ngFor="let event of events" style="text-align: right; position: inherit; text-align: right; background-color: rgba(0,0,0,.2)">
+  <div class="card-body">
+    <h5 class="card-title">{{event?.title}}</h5>
+    <p class="card-text"> מיקום:  {{event?.place}}</p>
+    <p class="card-text"> תאריך:  {{event?.eventDate| date: 'dd/MM/yyyy'}}</p>
+    <a [routerLink]="['/event', event.id]" class="btn btn-primary">רכישת כרטיסים</a>
+  </div>
+</div>
+
 <br> <br> <br>
+
 
 
 

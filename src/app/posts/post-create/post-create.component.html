@@ -8,7 +8,7 @@
           name="title"
           [ngModel]="post?.title"
           required
-          minlength="3"
+           minlength="3"
           placeholder="Post Title"
           #title="ngModel">
         <mat-error *ngIf="title.invalid">Please enter a post title.</mat-error>
@@ -24,7 +24,7 @@
           #content="ngModel"></textarea>
         <mat-error *ngIf="content.invalid">Please enter a post content.</mat-error>
       </mat-form-field>
-      <div class="text-center" ngModel name="postImg" required #postImg = "ngModel" ngDefaultControl>
+      <div class="text-center" ngModel name="postImg" #postImg = "ngModel" ngDefaultControl>
         <img [src]="this.url" accept="image/*" class="avatar img-circle img-thumbnail" style="height: 300px;">
         <h6>Upload a different photo...</h6>
         <input type="file" (change)="onImgUpload($event)">

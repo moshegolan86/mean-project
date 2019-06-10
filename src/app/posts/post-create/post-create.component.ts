@@ -30,16 +30,19 @@ export class PostCreateComponent implements OnInit {
       if (paramMap.has("postId")) {
         this.mode = "edit";
         this.postId = paramMap.get("postId");
-        this.isLoading = true;
-        this.postsService.getPost(this.postId).subscribe(postData => {
-          this.isLoading = false;
-          this.post = {id: postData._id, title: postData.title, content: postData.content, postImg: postData.postImg};
-          this.url = this.post.postImg;
-        });
-      } else {
-        this.mode = "create";
-        this.url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSd54Wultzcerep2O8X0hDz-cU31KpnQu4lyIL-_FdqyEJxazcF";
-        this.postId = null;
+        if (this.postId) {
+          this.mode = "edit";
+          this.isLoading = true;
+          this.postsService.getPost(this.postId).subscribe(postData => {
+            this.isLoading = false;
+            this.post = {id: postData._id, title: postData.title, content: postData.content, postImg: postData.postImg};
+            this.url = this.post.postImg;
+          });
+        }
+        else {
+          this.mode = "create";
+          this.url = "http://www.envymytee.com/wp-content/uploads/2016/08/cropped-New-Post.png";
+        }
       }
     });
   }
@@ -50,16 +53,18 @@ export class PostCreateComponent implements OnInit {
     }
     this.isLoading = true;
     if (this.mode === "create") {
-      this.postsService.addPost(form.value.title, form.value.content, form.value.postImg);
+      this.postsService.addPost(form.value.title, form.value.content, this.url);
     } else {
+      console.log("hereeee");
       this.postsService.updatePost(
         this.postId,
         form.value.title,
         form.value.content,
-        form.value.postImg
+        this.url
       );
     }
     form.resetForm();
+    this.url = '';
   }
 
   onRegister(form: NgForm) {

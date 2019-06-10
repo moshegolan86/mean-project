@@ -8,7 +8,8 @@ import { AuthGuard } from 'src/app/auth/auth.guard';
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PaypalService } from '../paypal.service';
+
+declare let paypal: any;
 
 @Component({
   selector: "app-viewContent",
@@ -21,14 +22,20 @@ export class viewContentComponent implements OnInit {
   private postsSub: Subscription;
   isLoading = false;
   private postId: string;
-  studentPrice: number = 0.5;
+  studentPrice: number = 50;
   guestPrice: number = 1;
-  totalPay: number;
+  totalPay: number = 0;
   showStudentPrice: boolean;
-  showGuestPrice: boolean
+  showGuestPrice: boolean;
+  addScript: boolean = false;
+  paypalLoad: boolean = true;
+  alreadyLoaded: boolean = false;
+  isInvalid: boolean = true;
 
-  constructor(public postsService: PostsService, public authGuard: AuthGuard, public authService: AuthService,public route: ActivatedRoute, private modalService: NgbModal,
-     public paypalService: PaypalService) {}
+
+
+
+  constructor(public postsService: PostsService, public authGuard: AuthGuard, public authService: AuthService,public route: ActivatedRoute, private modalService: NgbModal) {}
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -44,6 +51,7 @@ export class viewContentComponent implements OnInit {
         };
       })
     })
+
   }
 
   onDelete(postId: string) {
@@ -52,30 +60,35 @@ export class viewContentComponent implements OnInit {
 
   closeModal() {
     this.modalService.dismissAll();
-    this.ngOnInit();
+    this.addScript = false;
+    //this.ngOnInit();
   }
 
   onPayment(form: NgForm) {
 
     if (form.invalid) {
+      this.isInvalid = true;
       return;
     }
 
-    var addCardType = (<HTMLSelectElement>document.getElementById('cardType'));
-    var cardType = addCardType.options[addCardType.selectedIndex].text;
+    // var addCardType = (<HTMLSelectElement>document.getElementById('cardType'));
+    // var cardType = addCardType.options[addCardType.selectedIndex].text;
 
-    var addAmount = (<HTMLSelectElement>document.getElementById('amount'));
-    var amount = addAmount.options[addAmount.selectedIndex].text;
+    // var addAmount = (<HTMLSelectElement>document.getElementById('amount'));
+    // var amount = addAmount.options[addAmount.selectedIndex].text;
 
-    var price;
-    if (this.showStudentPrice) {
-       price = this.studentPrice;
-    }
-    else {
-      price = this.guestPrice;
-    }
+    // var price;
+    // if (this.showStudentPrice) {
+    //    price = this.studentPrice;
+    // }
+    // else {
+    //   price = this.guestPrice;
+    // }
 
-    this.paypalService.Paying(this.post.title, Number(amount), price, form.value.name, this.authService.getCurrentUser().email);
+
+
+
+    //this.paypalService.Paying(this.post.title, Number(amount), price, form.value.name, this.authService.getCurrentUser().email);
 
   }
 
@@ -106,13 +119,45 @@ export class viewContentComponent implements OnInit {
       this.totalPay = this.guestPrice * Number(amount);
     }
 
+    if (this.totalPay > 0 && (this.showGuestPrice || this.showStudentPrice)) {
+      document.getElementById('paypal-checkout-btn').style.display = 'block';
+    }
   }
 
   openPaymentModal(Content) {
     this.showGuestPrice = false;
     this.showStudentPrice = false;
+
     this.modalService.open(Content, {ariaLabelledBy: 'modal-basic-title'});
+    document.getElementById('paypal-checkout-btn').style.display = 'none';
+    //this.afterModalOpen();
+    //document.getElementById('paypal-checkout-btn').disabled = true;
   }
+
+  // afterModalOpen(): void {
+  //   if (!this.addScript && (!this.alreadyLoaded)) {
+  //     this.addPaypalScript().then(() => {
+  //       paypal.Button.render(this.paypalConfig, '#paypal-checkout-btn');
+  //       this.paypalLoad = false;
+  //       this.alreadyLoaded = true;
+  //     })
+  //   }
+  //   else {
+  //     paypal.Button.render(this.paypalConfig, '#paypal-checkout-btn');
+  //     this.paypalLoad = false;
+  //   }
+  // }
+
+  // addPaypalScript() {
+  //   this.addScript = true;
+  //   return new Promise((resolve, reject) => {
+  //     let scripttagElement = document.createElement('script');
+  //     scripttagElement.src = 'https://www.paypalobjects.com/api/checkout.js';
+  //     scripttagElement.onload = resolve;
+  //     document.body.appendChild(scripttagElement);
+  //     //document.getElementById('paypal-checkout-btn').disabled = false;
+  //   })
+  // }
 
   // ngOnDestroy() {
   //   this.postsSub.unsubscribe();

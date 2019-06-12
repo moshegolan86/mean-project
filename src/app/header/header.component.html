@@ -22,7 +22,7 @@
           תפריט מנהל<span class="caret"></span></a>
         <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
           <a class="dropdown-item waves-light" mdbWavesEffect [routerLink]="['/editpost', '']">הוסף פוסט</a>
-          <a class="dropdown-item waves-light" mdbWavesEffect href="#">הוסף הגרלה</a>
+          <!-- <a class="dropdown-item waves-light" mdbWavesEffect href="#">הוסף הגרלה</a> -->
           <!-- <a class="dropdown-item waves-light" mdbWavesEffect href="#">Something else here</a> -->
           <div class="divider dropdown-divider"></div>
           <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/admin">הרשמת נציג אגודה</a>
@@ -36,8 +36,8 @@
       <li class="nav-item avatar dropdown" dropdown>
           <a class="nav-link waves-light" dropdownToggle type="button" mdbWavesEffect><i class="fas fa-bell"></i></a>
           <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown-primary" role="menu">
-              <a class="dropdown-item waves-light" routerLink="/login">התחבר</a>
-              <a class="dropdown-item waves-light" routerLink="/register">הרשם</a>
+              <a class="dropdown-item waves-light" routerLink="/login"></a>
+              <a class="dropdown-item waves-light" routerLink="/register"></a>
           </div>
       </li>
       <aa class="navbar-text" *ngIf="isAuthenticated">

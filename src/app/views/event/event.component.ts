@@ -61,7 +61,8 @@ export class eventComponent implements OnInit {
     },
     onAuthorize: (data, actions) => {
       return actions.payment.execute().then((payment) => {
-        //Do something when payment is successful.
+        this.closeModal();
+        alert("שולם בהצלחה!");
       })
     }
   };

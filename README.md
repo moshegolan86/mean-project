@@ -1,6 +1,6 @@
 <<<<<<< HEAD
 # mean-stack-project
-MEAN stack web application Project
+MEAN stack web application Project<br>
 Web Application for SCE Students association
 =======
 
@@ -10,8 +10,6 @@ Web Application for SCE Students association
 ![](studentID.gif)
 ![](scholars.gif)
 
-
-# MeanCourse
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.4.
 
